@@ -6,7 +6,6 @@ const buildController = () => {
 }
 
 const injectSignalToRequest = (request: Request, abortSignal: AbortSignal) => {
-  console.log('before mutation', request)
   return new Request(request.url, {
     ...request,
     signal: abortSignal

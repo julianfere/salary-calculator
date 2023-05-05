@@ -1,8 +1,8 @@
 import ReactDOM from 'react-dom/client'
-import { Home } from 'pages/index.tsx'
 import 'styles.css'
+import App from 'App'
 
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-    <Home />
+    <App />
 )

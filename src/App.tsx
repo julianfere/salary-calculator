@@ -1,30 +1,17 @@
-import { useState } from "react"
-import { useAsync, useFetch } from "hooks"
-import { getTodaysDollarValue } from "services"
-import { DolarResponse } from "services/dolarService.ts/types"
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import { Home } from "pages"
 import "./styles.css"
+import { Layout } from "components"
 
-function App() {
-  const { error, isLoading, callEndpoint } = useFetch()
-  const [dolar, setDolar] = useState<DolarResponse>({} as DolarResponse)
-
-  const handleSuccess = (data: DolarResponse) => {
-    setDolar(data)
+const router = createBrowserRouter([
+  { path: '/', element: <Layout />, children: [
+    { path: '/', element: <Home /> },
+  ],
+  errorElement: <div>Not Found</div>
   }
+]
+)
 
-  const handleError = () => {
-    console.log(error)
-  }
-
-  useAsync(async () => await callEndpoint(getTodaysDollarValue()), handleSuccess, handleError)
-
-  return (
-    <>
-      {isLoading && <p>Loading...</p>}
-      {error && <p>se rompio</p>}
-      {dolar && <p>{dolar.oficial.value_sell}</p>}
-    </>
-  )
-}
+const App =() => <RouterProvider router={router} />
 
 export default App

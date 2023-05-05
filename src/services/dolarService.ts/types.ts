@@ -12,4 +12,4 @@ type DolarResponse = {
   last_update: string;
 }
 
-export type { DolarResponse };
+export type { DolarResponse, DolarValue };

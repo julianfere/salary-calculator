@@ -1,10 +1,17 @@
+import { DolarCard, WorkDaysCard } from 'components'
 import './styles.css'
+import { Grid } from '@mui/material'
 
 const Home = () => {
   return (
-    <div className="main-container">
-      <h1>Home</h1>
-    </div>
+    <Grid container spacing={2} padding={4}>
+      <Grid item xs={2} md={4}>
+        <DolarCard />
+      </Grid>
+      <Grid item xs={2} md={4}>
+        <WorkDaysCard />
+      </Grid>
+    </Grid>
   )
 }
 
