@@ -1,33 +1,28 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react"
+import { useAsync, useFetch } from "hooks"
+import { getTodaysDollarValue } from "services"
+import { DolarResponse } from "services/dolarService.ts/types"
+import "./styles.css"
 
 function App() {
-  const [count, setCount] = useState(0)
+  const { error, isLoading, callEndpoint } = useFetch()
+  const [dolar, setDolar] = useState<DolarResponse>({} as DolarResponse)
+
+  const handleSuccess = (data: DolarResponse) => {
+    setDolar(data)
+  }
+
+  const handleError = () => {
+    console.log(error)
+  }
+
+  useAsync(async () => await callEndpoint(getTodaysDollarValue()), handleSuccess, handleError)
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {isLoading && <p>Loading...</p>}
+      {error && <p>se rompio</p>}
+      {dolar && <p>{dolar.oficial.value_sell}</p>}
     </>
   )
 }
