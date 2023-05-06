@@ -1,0 +1,10 @@
+.calendar-container {
+  background-color: #ffffff;
+  width: fit-content;
+  border-radius: 20px;
+  /* padding: 10px; */
+}
+
+.calendar {
+  color: #000000;
+}
