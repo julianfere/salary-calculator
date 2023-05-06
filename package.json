@@ -13,13 +13,9 @@
     "@emotion/react": "^11.10.8",
     "@emotion/styled": "^11.10.8",
     "@mui/material": "^5.12.3",
-    "@prisma/client": "^4.13.0",
-    "@types/uuid": "^9.0.1",
-    "prisma": "^4.13.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.11.1",
-    "uuid": "^9.0.0",
     "vite-plugin-svgr": "^3.2.0",
     "vite-tsconfig-paths": "^4.2.0"
   },
