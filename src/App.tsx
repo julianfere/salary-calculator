@@ -1,7 +1,10 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
+
+import { AppProvider } from "providers"
 import { Home } from "pages"
-import "./styles.css"
 import { Layout } from "components"
+
+import "./styles.css"
 
 const router = createBrowserRouter([
   { path: '/', element: <Layout />, children: [
@@ -12,6 +15,6 @@ const router = createBrowserRouter([
 ]
 )
 
-const App =() => <RouterProvider router={router} />
+const App =() => <AppProvider><RouterProvider router={router} /></AppProvider>
 
 export default App
