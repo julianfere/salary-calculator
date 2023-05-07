@@ -1,4 +1,4 @@
-import { Chip, Divider, Tab, Tabs, Typography } from "@mui/material";
+import { Divider, Tab, Tabs, Typography } from "@mui/material";
 import { Card } from "components";
 import Calendar from "./Calendar";
 import { useAsync, useFetch, useCalendar } from "hooks";
@@ -8,7 +8,7 @@ import { getFestiveDaysByYear } from "services";
 import type { FestiveDatesResponse } from "services/workDaysService/types";
 import { calculateWorkDaysOfMonth, voidFunction, getMonthName } from "utils";
 import { getDateObject } from "utils/date/dateMapper";
-import { SyntheticEvent, forwardRef, useRef, useState } from "react";
+import { SyntheticEvent, useState } from "react";
 
 const WorkDays = () => {
   const { festiveDates, selectedMonth, setFestiveDates } = useCalendar();
