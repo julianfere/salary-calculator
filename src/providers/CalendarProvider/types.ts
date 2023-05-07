@@ -21,5 +21,11 @@ type SetSelectedMonth = {
 
 type Actions = SetFestiveDatesAction | SetSelectedMonth;
 
-export type { Actions };
+type CalendarContextType = {
+  festiveDates: FestiveDatesResponse;
+  selectedMonth: number;
+  dispatch: (action: Actions) => void;
+};
+
+export type { Actions, CalendarContextType };
 export { CalendarActions };

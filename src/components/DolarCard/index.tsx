@@ -1,6 +1,7 @@
 import { Divider, Stack, Typography } from "@mui/material";
 import { Card } from "components";
 import { useAsync, useFetch } from "hooks";
+import { useAppState } from "hooks/useAppSate";
 import { useState } from "react";
 import { getTodaysDollarValue } from "services";
 import { DolarResponse, DolarValue } from "services/dolarService.ts/types";
@@ -50,10 +51,15 @@ const CardBody = ({ data }: CardBodyProps) => {
 };
 
 const DolarCard = () => {
+  const { setDolarValueSell } = useAppState();
   const { isLoading, error, callEndpoint } = useFetch();
   const [dolarResponse, setDolarResponse] = useState({} as DolarResponse);
 
   const handleSuccess = (response: DolarResponse) => {
+    const { blue } = response;
+
+    setDolarValueSell(blue.value_sell);
+
     setDolarResponse(response);
   };
 
