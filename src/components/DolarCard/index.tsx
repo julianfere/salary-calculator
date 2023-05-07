@@ -20,27 +20,30 @@ const Dolar = ({ data }: DolarValueProps) => (
     direction="row"
     divider={<Divider orientation="vertical" flexItem />}
   >
-    <Typography variant="body1" color={"black"}>
+    <Typography variant="body1" color={"text.secondary"}>
       Sell: {data?.value_sell}
     </Typography>
-    <Typography variant="body1" color={"black"}>
+    <Typography variant="body1" color={"text.secondary"}>
       Buy: {data?.value_buy}
     </Typography>
-    <Typography variant="body1" color={"black"}>
+    <Typography variant="body1" color={"text.secondary"}>
       Average: {data?.value_avg}
     </Typography>
   </Stack>
 );
 
 const CardBody = ({ data }: CardBodyProps) => {
-  const { blue } = data;
-  const { oficial } = data;
+  const { blue, oficial } = data;
 
   return (
     <Stack spacing={2} alignItems="center">
-      <Divider>OFFICIAL</Divider>
+      <Divider flexItem>
+        <Typography color="primary.light">OFFICIAL</Typography>
+      </Divider>
       <Dolar data={oficial} />
-      <Divider>BLUE</Divider>
+      <Divider flexItem>
+        <Typography color="primary.light">BLUE</Typography>
+      </Divider>
       <Dolar data={blue} />
     </Stack>
   );
@@ -61,7 +64,7 @@ const DolarCard = () => {
   if (isLoading)
     return (
       <Card>
-        <Typography variant="subtitle1" color={"black"}>
+        <Typography variant="subtitle1" color={"primary"}>
           Fetching values...
         </Typography>
       </Card>
@@ -69,7 +72,7 @@ const DolarCard = () => {
   if (error)
     return (
       <Card>
-        <Typography variant="subtitle1" color={"black"}>
+        <Typography variant="subtitle1" color={"error.dark"}>
           Error fetching values
         </Typography>
       </Card>
@@ -78,7 +81,7 @@ const DolarCard = () => {
   return (
     <Card>
       <>
-        <Typography variant="h6" color={"black"} textAlign="center">
+        <Typography variant="h6" color="primary.dark" textAlign="center">
           Today dolar value
         </Typography>
         {dolarResponse && <CardBody data={dolarResponse} />}

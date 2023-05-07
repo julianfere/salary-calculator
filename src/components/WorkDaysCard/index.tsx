@@ -1,4 +1,4 @@
-import { Divider, Stack, Typography } from "@mui/material";
+import { Chip, Divider, Tab, Tabs, Typography } from "@mui/material";
 import { Card } from "components";
 import Calendar from "./Calendar";
 import { useAsync, useFetch, useCalendar } from "hooks";
@@ -8,6 +8,7 @@ import { getFestiveDaysByYear } from "services";
 import type { FestiveDatesResponse } from "services/workDaysService/types";
 import { calculateWorkDaysOfMonth, voidFunction, getMonthName } from "utils";
 import { getDateObject } from "utils/date/dateMapper";
+import { SyntheticEvent, forwardRef, useRef, useState } from "react";
 
 const WorkDays = () => {
   const { festiveDates, selectedMonth, setFestiveDates } = useCalendar();
@@ -23,29 +24,48 @@ const WorkDays = () => {
 
   useAsync(fetchFestiveDays, handleFetchFestiveDays, voidFunction);
 
-  if (isLoading) return <Typography>Fetching values...</Typography>;
-  if (error) return <Typography>Error</Typography>;
+  if (isLoading)
+    return <Typography color="primary">Fetching values...</Typography>;
+  if (error) return <Typography color="error.dark">Error</Typography>;
 
   return (
-    <Stack>
-      <Typography variant="h6" component="h1" textAlign="center" gutterBottom>
+    <>
+      <Typography
+        variant="h6"
+        component="h1"
+        textAlign="center"
+        gutterBottom
+        color="primary.dark"
+      >
         {getMonthName(selectedMonth)}
       </Typography>
-      <Divider>Work days</Divider>
-      <Typography variant="h5" component="h2" gutterBottom textAlign="center">
+      <Divider>
+        <Typography color="primary.light">Work days</Typography>
+      </Divider>
+      <Typography variant="h5" component="h2" textAlign="center">
         {calculateWorkDaysOfMonth(festiveDates, selectedMonth)}
       </Typography>
-    </Stack>
+    </>
   );
 };
 
-const CardWithCalendar = () => (
-  <CalendarProvider>
-    <Card>
-      <WorkDays />
-      <Calendar />
-    </Card>
-  </CalendarProvider>
-);
+const CardWithCalendar = () => {
+  const [tabIndex, setTabIndex] = useState(0);
+
+  const handleTabChange = (_: SyntheticEvent, index: number) =>
+    setTabIndex(index);
+
+  return (
+    <CalendarProvider>
+      <Card>
+        <Tabs value={tabIndex} onChange={handleTabChange} centered>
+          <Tab label="Simple view" />
+          <Tab label="Calendar view" />
+        </Tabs>
+        {tabIndex === 0 ? <WorkDays /> : <Calendar />}
+      </Card>
+    </CalendarProvider>
+  );
+};
 
 export default CardWithCalendar;

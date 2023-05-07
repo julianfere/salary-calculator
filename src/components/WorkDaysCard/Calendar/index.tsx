@@ -22,9 +22,8 @@ const ServerDay = (
       outsideCurrentMonth={outsideCurrentMonth}
       day={day}
       style={{
-        color: isSelected ? "white" : undefined,
-        fontWeight: isSelected ? "bold" : undefined,
-        backgroundColor: isSelected ? "#2E7D33" : undefined,
+        fontWeight: isSelected ? "bold" : "",
+        backgroundColor: isSelected ? "#115293" : "",
       }}
     />
   );
