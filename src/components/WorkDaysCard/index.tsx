@@ -1,25 +1,23 @@
 import { Divider, Stack, Typography } from "@mui/material";
-import { Calendar, Card } from "components";
-import { useAsync, useFetch } from "hooks";
-import { useState } from "react";
+import { Card } from "components";
+import Calendar from "./Calendar";
+import { useAsync, useFetch, useCalendar } from "hooks";
+import { CalendarProvider } from "providers";
 
 import { getFestiveDaysByYear } from "services";
-import type { FestiveDatesResposne } from "services/workDaysService/types";
-import {
-  calculateWorkDaysOfCurrentMonth,
-  getMonthName,
-  voidFunction,
-} from "utils";
+import type { FestiveDatesResponse } from "services/workDaysService/types";
+import { calculateWorkDaysOfMonth, voidFunction, getMonthName } from "utils";
+import { getDateObject } from "utils/date/dateMapper";
 
-const WorkDaysCard = () => {
-  const [festiveDates, setFestiveDates] = useState([] as FestiveDatesResposne);
+const WorkDays = () => {
+  const { festiveDates, selectedMonth, setFestiveDates } = useCalendar();
   const { isLoading, error, callEndpoint } = useFetch();
-  const currentDate = new Date();
+  const { year } = getDateObject();
 
   const fetchFestiveDays = async () =>
-    await callEndpoint(getFestiveDaysByYear(currentDate.getFullYear()));
+    await callEndpoint(getFestiveDaysByYear(year));
 
-  const handleFetchFestiveDays = async (data: FestiveDatesResposne) => {
+  const handleFetchFestiveDays = async (data: FestiveDatesResponse) => {
     setFestiveDates(data);
   };
 
@@ -29,19 +27,25 @@ const WorkDaysCard = () => {
   if (error) return <Typography>Error</Typography>;
 
   return (
-    <Card>
-      <Stack>
-        <Typography variant="h6" component="h1" textAlign="center" gutterBottom>
-          {getMonthName(currentDate)}
-        </Typography>
-        <Divider>Work days</Divider>
-        <Typography variant="h5" component="h2" gutterBottom textAlign="center">
-          {calculateWorkDaysOfCurrentMonth(festiveDates)}
-        </Typography>
-        <Calendar />
-      </Stack>
-    </Card>
+    <Stack>
+      <Typography variant="h6" component="h1" textAlign="center" gutterBottom>
+        {getMonthName(selectedMonth)}
+      </Typography>
+      <Divider>Work days</Divider>
+      <Typography variant="h5" component="h2" gutterBottom textAlign="center">
+        {calculateWorkDaysOfMonth(festiveDates, selectedMonth)}
+      </Typography>
+    </Stack>
   );
 };
 
-export default WorkDaysCard;
+const CardWithCalendar = () => (
+  <CalendarProvider>
+    <Card>
+      <WorkDays />
+      <Calendar />
+    </Card>
+  </CalendarProvider>
+);
+
+export default CardWithCalendar;

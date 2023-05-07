@@ -1,12 +1,12 @@
 import voidFunction from "./misc/voidFunction";
-import calculateWorkDaysOfCurrentMonth, {
+import calculateWorkDaysOfMonth, {
   getFestiveDatesOfCurrentMonth,
 } from "./calculators/workdays";
 import { getDayName, getMonthName } from "./date/dateMapper";
 
 export {
   voidFunction,
-  calculateWorkDaysOfCurrentMonth,
+  calculateWorkDaysOfMonth,
   getDayName,
   getMonthName,
   getFestiveDatesOfCurrentMonth,
