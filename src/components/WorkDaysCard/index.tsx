@@ -25,8 +25,17 @@ const WorkDays = () => {
   useAsync(fetchFestiveDays, handleFetchFestiveDays, voidFunction);
 
   if (isLoading)
-    return <Typography color="primary">Fetching values...</Typography>;
-  if (error) return <Typography color="error.dark">Error</Typography>;
+    return (
+      <Typography color="primary" textAlign="center">
+        Fetching values...
+      </Typography>
+    );
+  if (error)
+    return (
+      <Typography color="error.dark" textAlign="center">
+        Error
+      </Typography>
+    );
 
   return (
     <>
