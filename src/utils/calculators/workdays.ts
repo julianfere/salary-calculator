@@ -1,23 +1,34 @@
 import { FestiveDatesResposne } from "services/workDaysService/types";
+import { getDateObject } from "utils/date/dateMapper";
 
-const getDayesInMonth = (month: number, year: number) => {
+const getDaysInMonth = (month: number, year: number) => {
   return new Date(year, month, 0).getDate();
-}
+};
 
 const getWorkDays = (month: number, year: number) => {
-  const totalMonthDays = getDayesInMonth(month, year)
-  const workDays = totalMonthDays - 8 //substract 8 weekend days
-  return workDays
-}
+  const totalMonthDays = getDaysInMonth(month, year);
+  const workDays = totalMonthDays - 8; //substract 8 weekend days
+  return workDays;
+};
 
-const calculateWorkDaysOfCurrentMonth = (festiveDates: FestiveDatesResposne) => {
-  const currentDate = new Date();
-  const currentMonth = currentDate.getMonth() + 1; //FUCK YOU JAVASCRIPT
+const calculateWorkDaysOfCurrentMonth = (
+  festiveDates: FestiveDatesResposne
+) => {
+  const { month, year } = getDateObject();
 
-  const filteredDates = festiveDates.filter(x => x.mes === currentMonth && x.tipo !== 'nolaborable')
-  
-  const workDaysAndFestiveDates = getWorkDays(currentMonth, currentDate.getFullYear())
-  return workDaysAndFestiveDates - filteredDates.length
-}
+  const filteredDates = festiveDates.filter(
+    (x) => x.mes === month && x.tipo !== "nolaborable"
+  );
 
-export default calculateWorkDaysOfCurrentMonth
+  const workDaysAndFestiveDates = getWorkDays(month, year);
+  return workDaysAndFestiveDates - filteredDates.length;
+};
+
+const getFestiveDatesOfCurrentMonth = (festiveDates: FestiveDatesResposne) => {
+  const { month } = getDateObject();
+
+  return festiveDates.filter((x) => x.mes === month).map((x) => x.dia) ?? [];
+};
+
+export default calculateWorkDaysOfCurrentMonth;
+export { getFestiveDatesOfCurrentMonth };
