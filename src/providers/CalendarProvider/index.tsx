@@ -1,14 +1,7 @@
 import { ReactNode, createContext, useReducer } from "react";
 
-import { FestiveDatesResponse } from "services/workDaysService/types";
 import { getDateObject } from "utils/date/dateMapper";
-import { Actions, CalendarActions } from "./types";
-
-type CalendarContextType = {
-  festiveDates: FestiveDatesResponse;
-  selectedMonth: number;
-  dispatch: (action: Actions) => void;
-};
+import { Actions, CalendarActions, CalendarContextType } from "./types";
 
 const { month } = getDateObject();
 
