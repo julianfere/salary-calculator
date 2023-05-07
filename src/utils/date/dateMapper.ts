@@ -23,7 +23,11 @@ const DAYS = [
   "Saturday",
 ];
 
-const getMonthName = (date: Date): string => {
+const getMonthName = (date: Date | number): string => {
+  if (typeof date === "number") {
+    return MONTH[date - 1];
+  }
+
   return MONTH[date.getMonth()];
 };
 

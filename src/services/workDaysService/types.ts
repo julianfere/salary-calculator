@@ -1,13 +1,12 @@
 type FestiveDateObject = {
   motivo: string;
-  tipo: 'inamovible' | 'trasladable' | 'nolaborable' | 'puente';
+  tipo: "inamovible" | "trasladable" | "nolaborable" | "puente";
   info: string;
   dia: number;
   mes: number;
   id: string;
-}
+};
 
+type FestiveDatesResponse = FestiveDateObject[];
 
-type FestiveDatesResposne = FestiveDateObject[]
-
-export type { FestiveDatesResposne, FestiveDateObject };
+export type { FestiveDatesResponse, FestiveDateObject };

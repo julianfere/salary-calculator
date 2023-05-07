@@ -4,12 +4,8 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { PickersDay, PickersDayProps } from "@mui/x-date-pickers/PickersDay";
 import { DateCalendar } from "@mui/x-date-pickers/DateCalendar";
 import { DayCalendarSkeleton } from "@mui/x-date-pickers/DayCalendarSkeleton";
-import { useAsync, useFetch } from "hooks";
-import { getFestiveDaysByYear } from "services";
-import { getDateObject } from "utils/date/dateMapper";
-import { FestiveDatesResposne } from "services/workDaysService/types";
-import { useState } from "react";
-import { getFestiveDatesOfCurrentMonth, voidFunction } from "utils";
+import { useCalendar } from "hooks";
+import { getFestiveDatesOfCurrentMonth } from "utils";
 
 const ServerDay = (
   props: PickersDayProps<Dayjs> & { highlightedDays?: number[] }
@@ -35,31 +31,24 @@ const ServerDay = (
 };
 
 const FestiveDatesCalendar = () => {
-  const { isLoading, callEndpoint } = useFetch();
-  const [highlightedDays, setHighlightedDays] = useState<number[]>([]);
+  const { festiveDates, selectedMonth, setSelectedMonth } = useCalendar();
 
-  const fetchFestiveDates = async () =>
-    callEndpoint(getFestiveDaysByYear(getDateObject().year));
-
-  const handleSuccess = (data: FestiveDatesResposne) => {
-    const days = getFestiveDatesOfCurrentMonth(data);
-
-    setHighlightedDays(days);
-  };
-
-  useAsync(fetchFestiveDates, handleSuccess, voidFunction);
+  const handleMonthChange = (date: Dayjs) => setSelectedMonth(date.month() + 1);
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DateCalendar
-        loading={isLoading}
         renderLoading={() => <DayCalendarSkeleton />}
+        onMonthChange={handleMonthChange}
         slots={{
           day: ServerDay,
         }}
         slotProps={{
           day: {
-            highlightedDays,
+            highlightedDays: getFestiveDatesOfCurrentMonth(
+              festiveDates,
+              selectedMonth
+            ),
           } as any,
         }}
         views={["day"]}
