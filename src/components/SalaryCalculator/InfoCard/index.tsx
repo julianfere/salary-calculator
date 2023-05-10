@@ -6,6 +6,7 @@ const InfoCard = ({
   netIncome,
   netIncomeInDollars,
   netIncomePlusDolarBlue,
+  plusDollars,
 }: FinalSalary) => {
   return (
     <Card>
@@ -27,17 +28,36 @@ const InfoCard = ({
         {netIncomeInDollars > 0 && (
           <Box border={"1px solid #ccc"} padding={2}>
             <Typography color="primary.dark" variant="h5">
-              Net Income (Dolar)
+              In dollars
             </Typography>
-            <Typography alignSelf="center">
-              {humanReadableNumber(netIncomeInDollars)}
-            </Typography>
+            <Stack direction="row" spacing={2} alignItems="center">
+              <Typography alignSelf="center">
+                {humanReadableNumber(netIncomeInDollars)}
+                {plusDollars > 0 && (
+                  <>
+                    <Typography
+                      color="#81c784"
+                      variant="overline"
+                      marginLeft={1}
+                    >
+                      + {humanReadableNumber(plusDollars)}
+                    </Typography>
+                    <Typography color="#81c784" variant="overline">
+                      = {humanReadableNumber(netIncomeInDollars + plusDollars)}
+                    </Typography>
+                  </>
+                )}
+              </Typography>
+            </Stack>
           </Box>
         )}
         {netIncomePlusDolarBlue > 0 && (
           <Box border={"1px solid #ccc"} padding={2}>
             <Typography color="primary.dark" variant="h5">
-              Net Income (+Dolar)
+              Net Income{" "}
+              <Typography variant="overline">
+                (plus dollars blue in pesos)
+              </Typography>
             </Typography>
             <Typography alignSelf="center">
               {humanReadableNumber(netIncomePlusDolarBlue)}

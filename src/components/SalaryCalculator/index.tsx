@@ -35,6 +35,7 @@ const SalaryCalculator = () => {
   const [percentage, setPercentage] = useState<number>(0.15);
   const [gro, setGro] = useState<number>(0);
   const [final, setFinal] = useState<FinalSalary>({} as FinalSalary);
+  const [plusDollars, setPlusDollars] = useState<number>(0);
 
   const handleHoursChange = (event: SelectChangeEvent<ShiftDuration>) => {
     setHours(event.target.value as ShiftDuration);
@@ -52,9 +53,16 @@ const SalaryCalculator = () => {
 
   const handleCalculate = () => {
     const dollarPercentage = dollar ? percentage : 1;
-    console.log(gro, hours, dolarValueSell, dollarPercentage);
-    setFinal(calculateNetIncome(gro, hours, dolarValueSell, dollarPercentage));
-    console.log(final);
+
+    setFinal(
+      calculateNetIncome(
+        gro,
+        hours,
+        dolarValueSell,
+        dollarPercentage,
+        plusDollars
+      )
+    );
   };
 
   return (
@@ -62,7 +70,8 @@ const SalaryCalculator = () => {
       <Stack direction="column">
         <Stack direction="column" spacing={2}>
           <Stack direction="row" spacing={2} alignItems="center">
-            <FormControl variant="filled">
+            <FormControl variant="outlined">
+              <InputLabel id="salary-input">Gross Income</InputLabel>
               <OutlinedInput
                 id="salary-input"
                 label="Gross Income"
@@ -117,6 +126,20 @@ const SalaryCalculator = () => {
                     <MenuItem value={0.2}>20%</MenuItem>
                     <MenuItem value={0.35}>35%</MenuItem>
                   </Select>
+                </FormControl>
+                <FormControl variant="outlined">
+                  <InputLabel id="plus-dollars-input">Plus Dollars</InputLabel>
+                  <OutlinedInput
+                    id="plus-dollars-input"
+                    label="Plus Dollars"
+                    type="tel"
+                    startAdornment={
+                      <InputAdornment position="end">
+                        <Typography paddingRight={0.5}>$</Typography>
+                      </InputAdornment>
+                    }
+                    onChange={(e) => setPlusDollars(parseInt(e.target.value))}
+                  />
                 </FormControl>
               </Stack>
             )}
