@@ -10,6 +10,7 @@ import {
   Select,
   SelectChangeEvent,
   Stack,
+  Typography,
 } from "@mui/material";
 import { Card } from "components";
 import { useAppState } from "hooks/useAppSate";
@@ -50,21 +51,26 @@ const SalaryCalculator = () => {
   };
 
   const handleCalculate = () => {
-    const dollarPercentage = dollar ? percentage : undefined;
-
+    const dollarPercentage = dollar ? percentage : 1;
+    console.log(gro, hours, dolarValueSell, dollarPercentage);
     setFinal(calculateNetIncome(gro, hours, dolarValueSell, dollarPercentage));
+    console.log(final);
   };
 
   return (
     <Card>
-      <Stack direction="column" spacing={2}>
+      <Stack direction="column">
         <Stack direction="column" spacing={2}>
-          <Stack direction="row" spacing={2}>
+          <Stack direction="row" spacing={2} alignItems="center">
             <FormControl variant="filled">
-              <InputLabel id="salary-input">Gross Income</InputLabel>
               <OutlinedInput
+                id="salary-input"
+                label="Gross Income"
+                type="tel"
                 startAdornment={
-                  <InputAdornment position="start">$</InputAdornment>
+                  <InputAdornment position="end">
+                    <Typography paddingRight={0.5}>$</Typography>
+                  </InputAdornment>
                 }
                 onChange={handleGrossIncomeChange}
               />
@@ -77,7 +83,9 @@ const SalaryCalculator = () => {
                 onChange={handleHoursChange}
                 label="Hours"
               >
-                <MenuItem value={PERCENTAGE_FOR_EIGHT_HOURS}>8</MenuItem>
+                <MenuItem value={PERCENTAGE_FOR_EIGHT_HOURS} selected>
+                  8
+                </MenuItem>
                 <MenuItem value={PERCENTAGE_FOR_SIX_HOURS}>6</MenuItem>
                 <MenuItem value={PERCENTAGE_FOR_FOUR_HOURS}>4</MenuItem>
               </Select>
@@ -119,7 +127,7 @@ const SalaryCalculator = () => {
             </FormControl>
           </Stack>
         </Stack>
-        {final.netIncome && <InfoCard {...final} />}
+        {final.netIncome !== undefined && <InfoCard {...final} />}
       </Stack>
     </Card>
   );
