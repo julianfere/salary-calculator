@@ -9,4 +9,4 @@ const WorkDaysCard = () => {
   );
 };
 
-export { WorkDaysCard };
+export default WorkDaysCard;
