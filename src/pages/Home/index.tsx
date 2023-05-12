@@ -10,13 +10,13 @@ const Home = () => {
       columns={{ xs: 8, sm: 8, md: 8 }}
       p={5}
     >
-      <Grid item xs={2} sm={4} md={4}>
+      <Grid item>
         <DolarCard />
       </Grid>
-      <Grid item xs={2} sm={4} md={4}>
+      <Grid item>
         <WorkDaysCard />
       </Grid>
-      <Grid item xs={8} sm={8} md={8}>
+      <Grid item>
         <SalaryCalculator />
       </Grid>
     </Grid>

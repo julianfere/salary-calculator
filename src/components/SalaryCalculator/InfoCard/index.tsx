@@ -17,14 +17,16 @@ const InfoCard = ({
         padding={2}
         borderRadius={2}
       >
-        <Box border={"1px solid #ccc"} padding={2}>
-          <Typography color="primary.dark" variant="h5">
-            Net Income
-          </Typography>
-          <Typography alignSelf="center">
-            {humanReadableNumber(netIncome)}
-          </Typography>
-        </Box>
+        {netIncomePlusDolarBlue > 0 && (
+          <Box border={"1px solid #ccc"} padding={2}>
+            <Typography color="primary.dark" variant="h5">
+              Net Income
+            </Typography>
+            <Typography alignSelf="center">
+              {humanReadableNumber(netIncome)}
+            </Typography>
+          </Box>
+        )}
         {netIncomeInDollars > 0 && (
           <Box border={"1px solid #ccc"} padding={2}>
             <Typography color="primary.dark" variant="h5">
