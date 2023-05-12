@@ -1,32 +1,15 @@
-import {
-  Button,
-  Checkbox,
-  FormControl,
-  FormControlLabel,
-  InputAdornment,
-  InputLabel,
-  MenuItem,
-  OutlinedInput,
-  Select,
-  SelectChangeEvent,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Button, FormControl, Grid, SelectChangeEvent } from "@mui/material";
 import { Card } from "components";
 import { useAppState } from "hooks/useAppSate";
 import { useState } from "react";
 
-import {
-  PERCENTAGE_FOR_EIGHT_HOURS,
-  PERCENTAGE_FOR_SIX_HOURS,
-  PERCENTAGE_FOR_FOUR_HOURS,
-  calculateNetIncome,
-  FinalSalary,
-} from "utils";
+import { calculateNetIncome, FinalSalary } from "utils";
 
 import { InfoCard } from "./InfoCard";
-
-type ShiftDuration = 8 | 6 | 4;
+import GrossIncomeInput from "./GrossIncome";
+import HoursSelect, { ShiftDuration } from "./HoursSelect";
+import DolarInput from "./DolarInput";
+import DollarForm from "./DolarForm";
 
 const SalaryCalculator = () => {
   const { dolarValueSell } = useAppState();
@@ -67,91 +50,36 @@ const SalaryCalculator = () => {
 
   return (
     <Card>
-      <Stack direction="column">
-        <Stack direction="column" spacing={2}>
-          <Stack direction="row" spacing={2} alignItems="center">
-            <FormControl variant="outlined">
-              <InputLabel id="salary-input">Gross Income</InputLabel>
-              <OutlinedInput
-                id="salary-input"
-                label="Gross Income"
-                type="tel"
-                startAdornment={
-                  <InputAdornment position="end">
-                    <Typography paddingRight={0.5}>$</Typography>
-                  </InputAdornment>
-                }
-                onChange={handleGrossIncomeChange}
-              />
-            </FormControl>
-            <FormControl sx={{ minWidth: 80 }}>
-              <InputLabel id="hours-input">Hours</InputLabel>
-              <Select
-                labelId="hours-input"
-                value={hours}
-                onChange={handleHoursChange}
-                label="Hours"
-              >
-                <MenuItem value={PERCENTAGE_FOR_EIGHT_HOURS} selected>
-                  8
-                </MenuItem>
-                <MenuItem value={PERCENTAGE_FOR_SIX_HOURS}>6</MenuItem>
-                <MenuItem value={PERCENTAGE_FOR_FOUR_HOURS}>4</MenuItem>
-              </Select>
-            </FormControl>
-            <FormControl>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    sx={{ "& .MuiSvgIcon-root": { fontSize: 35 } }}
-                    color="success"
-                    value={dollar}
-                    onChange={() => setDolar((dolar) => !dolar)}
-                  />
-                }
-                label="Part in dollars"
-              />
-            </FormControl>
-            {dollar && (
-              <Stack direction="row" spacing={2}>
-                <FormControl sx={{ minWidth: 339 }}>
-                  <InputLabel id="hours-input">Percentage</InputLabel>
-                  <Select
-                    labelId="hours-input"
-                    value={percentage}
-                    onChange={handlePercentageChange}
-                    label="Percentage"
-                  >
-                    <MenuItem value={0.15}>15%</MenuItem>
-                    <MenuItem value={0.2}>20%</MenuItem>
-                    <MenuItem value={0.35}>35%</MenuItem>
-                  </Select>
-                </FormControl>
-                <FormControl variant="outlined">
-                  <InputLabel id="plus-dollars-input">Plus Dollars</InputLabel>
-                  <OutlinedInput
-                    id="plus-dollars-input"
-                    label="Plus Dollars"
-                    type="tel"
-                    startAdornment={
-                      <InputAdornment position="end">
-                        <Typography paddingRight={0.5}>$</Typography>
-                      </InputAdornment>
-                    }
-                    onChange={(e) => setPlusDollars(parseInt(e.target.value))}
-                  />
-                </FormControl>
-              </Stack>
-            )}
-            <FormControl>
-              <Button variant="contained" onClick={handleCalculate}>
-                Calculate
-              </Button>
-            </FormControl>
-          </Stack>
-        </Stack>
-        {final.netIncome !== undefined && <InfoCard {...final} />}
-      </Stack>
+      <Grid container spacing={2} alignItems="center">
+        <Grid item>
+          <GrossIncomeInput handleGrossIncomeChange={handleGrossIncomeChange} />
+        </Grid>
+        <Grid item>
+          <HoursSelect handleHoursChange={handleHoursChange} hours={hours} />
+        </Grid>
+        <Grid item>
+          <DolarInput dollar={dollar} setDolar={setDolar} />
+        </Grid>
+        {dollar && (
+          <Grid item>
+            <DollarForm
+              percentage={percentage}
+              handlePercentageChange={handlePercentageChange}
+              setPlusDollars={setPlusDollars}
+            />
+          </Grid>
+        )}
+        <Grid item>
+          <FormControl>
+            <Button variant="contained" onClick={handleCalculate}>
+              Calculate
+            </Button>
+          </FormControl>
+        </Grid>
+        <Grid item>
+          {final.netIncome !== undefined && <InfoCard {...final} />}
+        </Grid>
+      </Grid>
     </Card>
   );
 };
