@@ -1,6 +1,6 @@
-const PERCENTAGE_FOR_SIX_HOURS = 0.75;
 const PERCENTAGE_FOR_EIGHT_HOURS = 1;
-const PERCENTAGE_FOR_FOUR_HOURS = 0.6667; // Fuente: ChatGPT
+const PERCENTAGE_FOR_SIX_HOURS = 0.75;
+const PERCENTAGE_FOR_FOUR_HOURS = 0.5; // Fuente: ChatGPT
 const TAX_PERCENTAGE = 0.17;
 
 export type FinalSalary = {
