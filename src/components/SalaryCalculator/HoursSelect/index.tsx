@@ -24,12 +24,14 @@ const HoursSelect = ({ handleHoursChange, hours }: HoursSelectProps) => (
     <InputLabel id="hours-input">Hours</InputLabel>
     <Select
       labelId="hours-input"
-      value={hours}
       onChange={handleHoursChange}
+      value={hours}
       label="Hours"
       sx={{ minWidth: 60 }}
     >
-      <MenuItem value={PERCENTAGE_FOR_EIGHT_HOURS}>8</MenuItem>
+      <MenuItem value={PERCENTAGE_FOR_EIGHT_HOURS} selected>
+        8
+      </MenuItem>
       <MenuItem value={PERCENTAGE_FOR_SIX_HOURS}>6</MenuItem>
       <MenuItem value={PERCENTAGE_FOR_FOUR_HOURS}>4</MenuItem>
     </Select>
