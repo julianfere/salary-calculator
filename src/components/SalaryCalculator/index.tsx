@@ -3,7 +3,7 @@ import { Card } from "components";
 import { useAppState } from "hooks/useAppSate";
 import { useState } from "react";
 
-import { calculateNetIncome, FinalSalary } from "utils";
+import { FinalSalary, calculateNetIncome } from "utils";
 
 import { InfoCard } from "./InfoCard";
 import GrossIncomeInput from "./GrossIncome";
@@ -11,46 +11,77 @@ import HoursSelect, { ShiftDuration } from "./HoursSelect";
 import DolarInput from "./DolarInput";
 import DollarForm from "./DolarForm";
 
+type SalaryState = {
+  hours: ShiftDuration;
+  percentage: number;
+  dollar: boolean;
+  gro: number;
+  plusDollars: number;
+  final: FinalSalary;
+};
+
+const initialState: SalaryState = {
+  hours: 8,
+  percentage: 1,
+  dollar: false,
+  gro: 0,
+  plusDollars: 0,
+  final: {
+    netIncome: 0,
+    netIncomeInDollars: 0,
+    netIncomePlusDolarBlue: 0,
+    plusDollars: 0,
+  },
+};
+
 const SalaryCalculator = () => {
   const { dolarValueSell } = useAppState();
-  const [hours, setHours] = useState<ShiftDuration>(8);
-  const [dollar, setDolar] = useState<boolean>(false);
-  const [percentage, setPercentage] = useState<number>(0.15);
-  const [gro, setGro] = useState<number>(0);
-  const [final, setFinal] = useState<FinalSalary>({} as FinalSalary);
-  const [plusDollars, setPlusDollars] = useState<number>(0);
+  const [data, setData] = useState<SalaryState>(initialState);
+  const { hours, dollar, percentage, final } = data;
 
   const handleHoursChange = (event: SelectChangeEvent<ShiftDuration>) => {
-    setHours(event.target.value as ShiftDuration);
+    setData((data) => ({
+      ...data,
+      hours: event.target.value as ShiftDuration,
+    }));
   };
 
   const handlePercentageChange = (event: SelectChangeEvent<number>) => {
-    setPercentage(event.target.value as number);
+    setData((data) => ({ ...data, percentage: event.target.value as number }));
   };
 
   const handleGrossIncomeChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setGro(parseInt(event.target.value));
+    setData((data) => ({ ...data, gro: parseInt(event.target.value) }));
   };
 
   const handleCalculate = () => {
+    const { hours, gro, dollar, percentage, plusDollars } = data;
     const dollarPercentage = dollar ? percentage : 1;
 
-    setFinal(
-      calculateNetIncome(
-        gro,
-        hours,
-        dolarValueSell,
-        dollarPercentage,
-        plusDollars
-      )
+    const final = calculateNetIncome(
+      gro,
+      hours,
+      dolarValueSell,
+      dollarPercentage,
+      plusDollars
     );
+
+    setData((data) => ({ ...data, final }));
+  };
+
+  const setDolar = () => {
+    setData((data) => ({ ...data, dollar: !data.dollar }));
+  };
+
+  const setPlusDollars = (plusDollars: number) => {
+    setData((data) => ({ ...data, plusDollars }));
   };
 
   return (
     <Card>
-      <Grid container spacing={2} alignItems="center">
+      <Grid container spacing={2} alignItems="center" justifyContent="center">
         <Grid item>
           <GrossIncomeInput handleGrossIncomeChange={handleGrossIncomeChange} />
         </Grid>
@@ -76,9 +107,11 @@ const SalaryCalculator = () => {
             </Button>
           </FormControl>
         </Grid>
-        <Grid item>
-          {final.netIncome !== undefined && <InfoCard {...final} />}
-        </Grid>
+        {final.netIncome > 0 && (
+          <Grid item>
+            <InfoCard {...final} />
+          </Grid>
+        )}
       </Grid>
     </Card>
   );

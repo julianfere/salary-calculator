@@ -17,7 +17,7 @@ const InfoCard = ({
         padding={2}
         borderRadius={2}
       >
-        {netIncomePlusDolarBlue > 0 && (
+        {netIncome > 0 && (
           <Box border={"1px solid #ccc"} padding={2}>
             <Typography color="primary.dark" variant="h5">
               Net Income
