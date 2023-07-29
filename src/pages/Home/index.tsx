@@ -1,19 +1,26 @@
-import { DolarCard, SalaryCalculator, WorkDaysCard } from "components";
-import { Grid } from "@mui/material";
+import { Card, Col, Row } from "antd";
+import { WorkDaysCard, SalaryForm } from "components";
+import DollarSection from "components/DollarSection";
 
 const Home = () => {
   return (
-    <Grid container spacing={{ xs: 2, md: 3 }} p={5} justifyContent="center">
-      <Grid item>
-        <DolarCard />
-      </Grid>
-      <Grid item>
-        <WorkDaysCard />
-      </Grid>
-      <Grid item xs={12}>
-        <SalaryCalculator />
-      </Grid>
-    </Grid>
+    <Card>
+      <Row justify="center" align="middle" gutter={[0, 40]}>
+        <Col span={24}>
+          <Row justify="center" align="middle" gutter={[0, 10]}>
+            <Col xl={3}>
+              <DollarSection />
+            </Col>
+            <Col xl={24}>
+              <WorkDaysCard />
+            </Col>
+          </Row>
+        </Col>
+        <Col span={24}>
+          <SalaryForm />
+        </Col>
+      </Row>
+    </Card>
   );
 };
 
