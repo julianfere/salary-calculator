@@ -1,25 +1,17 @@
 import { Card, Col, Row } from "antd";
-import { DollarCard, WorkDaysCard, SalaryForm } from "components";
+import { WorkDaysCard, SalaryForm } from "components";
+import DollarSection from "components/DollarSection";
 
 const Home = () => {
   return (
-    <Card
-      style={{
-        height: "100%",
-        width: "100%",
-      }}
-      data-testid="home-page"
-    >
+    <Card>
       <Row justify="center" align="middle" gutter={[0, 40]}>
         <Col span={24}>
-          <Row justify="center" align="middle">
+          <Row justify="center" align="middle" gutter={[0, 10]}>
             <Col xl={3}>
-              <DollarCard title="Dolar Blue" value={150} status="increased" />
+              <DollarSection />
             </Col>
-            <Col xl={3}>
-              <DollarCard title="Dolar Blue" value={150} status="increased" />
-            </Col>
-            <Col xl={3}>
+            <Col xl={24}>
               <WorkDaysCard />
             </Col>
           </Row>

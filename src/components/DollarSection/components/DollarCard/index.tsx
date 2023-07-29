@@ -1,11 +1,7 @@
-import {
-  ArrowUpOutlined,
-  ArrowDownOutlined,
-  LineOutlined,
-} from "@ant-design/icons";
+import { ArrowUpOutlined, ArrowDownOutlined } from "@ant-design/icons";
 import { Row, Col, Card, Statistic, Typography } from "antd";
 import { useTheme } from "hooks";
-import { DollarStatuses } from "services/dolarService.ts/types";
+import { DollarStatuses } from "services/dolarService/types";
 
 type DollarCardProps = {
   value: number;
@@ -29,9 +25,7 @@ const DollarCard = ({ title, value, status, lastUpdated }: DollarCardProps) => {
       <ArrowUpOutlined />
     ) : status === "decreased" ? (
       <ArrowDownOutlined />
-    ) : (
-      <LineOutlined />
-    );
+    ) : null;
 
   return (
     <Row>
