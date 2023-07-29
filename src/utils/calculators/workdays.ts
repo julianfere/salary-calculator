@@ -30,7 +30,7 @@ const getFestiveDatesOfCurrentMonth = (
   otherMonth?: number
 ) => {
   const month = otherMonth ?? getDateObject().month;
-
+  debugger;
   return festiveDates.filter((x) => x.mes === month).map((x) => x.dia) ?? [];
 };
 
