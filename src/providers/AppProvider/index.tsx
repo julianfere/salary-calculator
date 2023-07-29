@@ -1,19 +1,10 @@
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
 import { AppStateProvider } from "providers/AppStateProvider";
+import { ThemeProvider } from "providers/ThemeProvider";
+import { ReactNode } from "react";
 
-const theme = createTheme({
-  palette: {
-    mode: "dark",
-  },
-});
-
-const AppProvider = ({ children }: { children: React.ReactNode }) => (
+const AppProvider = ({ children }: { children: ReactNode }) => (
   <AppStateProvider>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      {children}
-    </ThemeProvider>
+    <ThemeProvider>{children}</ThemeProvider>
   </AppStateProvider>
 );
 

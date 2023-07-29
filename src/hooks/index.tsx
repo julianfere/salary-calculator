@@ -1,5 +1,5 @@
 import useAsync from "./useAsync";
 import useFetch from "./useFetch";
-import { useCalendar } from "./useCalendar";
+import { useTheme } from "./useTheme";
 
-export { useAsync, useFetch, useCalendar };
+export { useAsync, useFetch, useTheme };

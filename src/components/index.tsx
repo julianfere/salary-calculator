@@ -1,8 +1,6 @@
 import Layout from "./Layout";
-import Sidebar from "./Sidebar";
-import Card from "./Card";
-import DolarCard from "./DolarCard";
+import DollarCard from "./DollarCard";
 import WorkDaysCard from "./WorkDaysCard";
-import SalaryCalculator from "./SalaryCalculator";
+import SalaryForm from "./SalaryForm";
 
-export { Layout, Sidebar, Card, DolarCard, WorkDaysCard, SalaryCalculator };
+export { Layout, DollarCard, WorkDaysCard, SalaryForm };

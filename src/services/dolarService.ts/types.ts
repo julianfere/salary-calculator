@@ -1,15 +1,17 @@
-type DolarValue = {
-  value_avg: number;
+type DollarHistory = {
+  date: string;
+  type: "Oficial" | "Blue";
   value_sell: number;
   value_buy: number;
-}
+}[];
 
-type DolarResponse = {
-  oficial: DolarValue;
-  blue: DolarValue;
-  oficial_euro: DolarValue;
-  blue_euro: DolarValue;
-  last_update: string;
-}
+type DollarStatuses = "increased" | "decreased" | "equal";
 
-export type { DolarResponse, DolarValue };
+type LatestDollarInfo = {
+  sell: number;
+  buy: number;
+  status: DollarStatuses;
+  lastUpdated: string;
+};
+
+export type { DollarHistory, LatestDollarInfo, DollarStatuses };
