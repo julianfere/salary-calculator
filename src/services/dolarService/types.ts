@@ -1,6 +1,6 @@
 type DollarHistory = {
   date: string;
-  type: "Oficial" | "Blue";
+  source: "Oficial" | "Blue";
   value_sell: number;
   value_buy: number;
 }[];
@@ -14,4 +14,9 @@ type LatestDollarInfo = {
   lastUpdated: string;
 };
 
-export type { DollarHistory, LatestDollarInfo, DollarStatuses };
+type DolarInfo = {
+  official: LatestDollarInfo;
+  blue: LatestDollarInfo;
+};
+
+export type { DolarInfo, DollarHistory, LatestDollarInfo, DollarStatuses };

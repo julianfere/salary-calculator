@@ -1,4 +1,4 @@
-import { Card, Skeleton, Typography } from "antd";
+import { Card, Col, Row, Skeleton, Typography } from "antd";
 import { useAsync, useFetch } from "hooks";
 import { useTheme } from "hooks/useTheme";
 import { useState } from "react";
@@ -23,25 +23,31 @@ const WorkDaysCard = () => {
   useAsync(fetchFestiveDays, handleFetchFestiveDays, voidFunction);
 
   return (
-    <Card>
-      {isLoading && <Skeleton active />}
-      {!isLoading && (
-        <>
-          <Typography.Title
-            level={5}
-            style={{
-              margin: 0,
-              padding: 0,
-              textAlign: "center",
-            }}
-          >
-            Work days of{" "}
-            <span style={{ color: colorPrimary }}>{getMonthName(month)}</span>:{" "}
-            {calculateWorkDaysOfMonth(festiveDates)}
-          </Typography.Title>
-        </>
-      )}
-    </Card>
+    <Row justify="center">
+      <Col>
+        <Card>
+          {isLoading && <Skeleton active />}
+          {!isLoading && (
+            <>
+              <Typography.Title
+                level={5}
+                style={{
+                  margin: 0,
+                  padding: 0,
+                  textAlign: "center",
+                }}
+              >
+                Work days of{" "}
+                <span style={{ color: colorPrimary }}>
+                  {getMonthName(month)}
+                </span>
+                : {calculateWorkDaysOfMonth(festiveDates)}
+              </Typography.Title>
+            </>
+          )}
+        </Card>
+      </Col>
+    </Row>
   );
 };
 
