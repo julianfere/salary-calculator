@@ -1,10 +1,19 @@
+import { Col, Row } from "antd";
 import { Outlet } from "react-router-dom";
 
 const Layout = () => {
   return (
-    <main>
-      <Outlet />
-    </main>
+    <Row
+      justify="center"
+      align="middle"
+      style={{
+        height: "100%",
+      }}
+    >
+      <Col>
+        <Outlet />
+      </Col>
+    </Row>
   );
 };
 

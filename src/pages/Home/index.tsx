@@ -4,11 +4,11 @@ import DollarSection from "components/DollarSection";
 
 const Home = () => {
   return (
-    <Card>
+    <Card bordered={false}>
       <Row justify="center" align="middle" gutter={[0, 40]}>
         <Col span={24}>
           <Row justify="center" align="middle" gutter={[0, 10]}>
-            <Col xl={3}>
+            <Col>
               <DollarSection />
             </Col>
             <Col xl={24}>
