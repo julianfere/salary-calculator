@@ -27,7 +27,7 @@ const DollarSection = () => {
   useAsync(fetchDolar, handleFetchDolar, voidFunction);
 
   return (
-    <Row gutter={[0, 20]} justify="center">
+    <Row gutter={[40, 20]} justify="center">
       {isLoading && <Skeleton active />}
       {!isLoading && (
         <>
