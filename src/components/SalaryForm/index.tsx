@@ -73,7 +73,7 @@ const SalaryForm = () => {
   return (
     <Row justify="center">
       <Col>
-        <Card>
+        <Card title="Calculadora" type="inner">
           <Form
             form={form}
             layout="vertical"
