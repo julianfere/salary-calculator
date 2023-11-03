@@ -10,6 +10,15 @@ export type FinalSalary = {
   plusDollars: number;
 };
 
+const normalizeNumber = (value: number) => {
+  const str = value.toString();
+
+  const fnumber = str.replace(/[,.]/g, "");
+  const integer = parseInt(fnumber, 10);
+
+  return integer;
+};
+
 const calculateNetIncome = (
   grossIncome: number,
   percentage: number,
@@ -18,7 +27,8 @@ const calculateNetIncome = (
   plusDollars = 0
 ): FinalSalary => {
   const skipDolar = dolarPercentage === 1;
-  const grossByHour = grossIncome * percentage;
+  const salary = normalizeNumber(grossIncome);
+  const grossByHour = salary * percentage;
   const grossInPesos = skipDolar
     ? grossByHour
     : grossByHour - grossByHour * dolarPercentage;
@@ -33,7 +43,7 @@ const calculateNetIncome = (
       plusDollars,
     };
 
-  const netIncomeInDollars = (grossIncome * dolarPercentage) / dolarValue;
+  const netIncomeInDollars = (salary * dolarPercentage) / dolarValue;
   const netIncomePlusDolarBlue =
     netIncome + (netIncomeInDollars + plusDollars) * dolarValue;
 

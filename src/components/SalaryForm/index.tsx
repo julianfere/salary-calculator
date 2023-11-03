@@ -7,7 +7,6 @@ import {
   Input,
   Row,
   Select,
-  Switch,
 } from "antd";
 import { useTheme } from "hooks";
 import { useAppState } from "hooks/useAppSate";
@@ -52,7 +51,6 @@ const dollarOptions = [
 ];
 
 const SalaryForm = () => {
-  const [showDollarForm, setShowDollarForm] = useState(false);
   const [salaryData, setSalaryData] = useState<FinalSalary | null>(null);
   const [form] = Form.useForm();
   const { dolarValueSell } = useAppState();
@@ -95,33 +93,24 @@ const SalaryForm = () => {
                   <Select options={hourOptions} size="large" />
                 </Form.Item>
               </Col>
-              <Col xl={4} xs={24}>
-                <Form.Item label="Parte en dolares" labelAlign="right">
-                  <Switch onChange={() => setShowDollarForm((old) => !old)} />
+              <Col xl={3} xs={24}>
+                <Form.Item
+                  name="dolarPercentage"
+                  label="Porcentaje"
+                  labelAlign="right"
+                >
+                  <Select options={dollarOptions} />
                 </Form.Item>
               </Col>
-              {showDollarForm && (
-                <>
-                  <Col xl={3} xs={24}>
-                    <Form.Item
-                      name="dolarPercentage"
-                      label="Porcentaje"
-                      labelAlign="right"
-                    >
-                      <Select options={dollarOptions} />
-                    </Form.Item>
-                  </Col>
-                  <Col xl={4} xs={24}>
-                    <Form.Item
-                      name="plusDollars"
-                      label="Plus (USD)"
-                      labelAlign="right"
-                    >
-                      <Input />
-                    </Form.Item>
-                  </Col>
-                </>
-              )}
+              <Col xl={4} xs={24}>
+                <Form.Item
+                  name="plusDollars"
+                  label="Plus (USD)"
+                  labelAlign="right"
+                >
+                  <Input />
+                </Form.Item>
+              </Col>
               <Col xl={4} xs={24}>
                 <Form.Item label>
                   <Button type="primary" htmlType="submit">
@@ -129,36 +118,31 @@ const SalaryForm = () => {
                   </Button>
                 </Form.Item>
               </Col>
-              {salaryData && (
-                <Col span={24}>
-                  <Descriptions title="Cuenta final" bordered>
-                    <Descriptions.Item
-                      label="Neto"
-                      labelStyle={{ color: colorPrimary }}
-                    >
-                      {humanReadableNumber(salaryData.netIncome)}
-                    </Descriptions.Item>
-                    {showDollarForm && (
-                      <>
-                        <Descriptions.Item
-                          label="Dolares"
-                          labelStyle={{ color: colorPrimary }}
-                        >
-                          {humanReadableNumber(salaryData.netIncomeInDollars)}
-                        </Descriptions.Item>
-                        <Descriptions.Item
-                          label="Neto con dolares"
-                          labelStyle={{ color: colorPrimary }}
-                        >
-                          {humanReadableNumber(
-                            salaryData.netIncomePlusDolarBlue
-                          )}
-                        </Descriptions.Item>
-                      </>
-                    )}
-                  </Descriptions>
-                </Col>
-              )}
+              <Col span={24}>
+                <Descriptions title="Cuenta final" bordered>
+                  <Descriptions.Item
+                    label="Neto"
+                    labelStyle={{ color: colorPrimary }}
+                  >
+                    {humanReadableNumber(salaryData?.netIncome ?? 0) ?? "-"}
+                  </Descriptions.Item>
+                  <Descriptions.Item
+                    label="Dolares"
+                    labelStyle={{ color: colorPrimary }}
+                  >
+                    {humanReadableNumber(salaryData?.netIncomeInDollars ?? 0) ??
+                      "-"}
+                  </Descriptions.Item>
+                  <Descriptions.Item
+                    label="Neto con dolares"
+                    labelStyle={{ color: colorPrimary }}
+                  >
+                    {humanReadableNumber(
+                      salaryData?.netIncomePlusDolarBlue ?? 0
+                    ) ?? "-"}
+                  </Descriptions.Item>
+                </Descriptions>
+              </Col>
             </Row>
           </Form>
         </Card>

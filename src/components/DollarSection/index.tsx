@@ -27,7 +27,13 @@ const DollarSection = () => {
   useAsync(fetchDolar, handleFetchDolar, voidFunction);
 
   return (
-    <Row gutter={[40, 20]} justify="center">
+    <section
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        gap: "1rem",
+      }}
+    >
       {isLoading && <Skeleton active />}
       {!isLoading && (
         <>
@@ -49,7 +55,7 @@ const DollarSection = () => {
           </Col>
         </>
       )}
-    </Row>
+    </section>
   );
 };
 
