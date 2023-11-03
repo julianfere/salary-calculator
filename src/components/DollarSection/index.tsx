@@ -1,4 +1,4 @@
-import { Row, Col, Skeleton } from "antd";
+import { Col, Skeleton } from "antd";
 import DollarCard from "./components/DollarCard";
 import { useAsync, useFetch } from "hooks";
 import {
