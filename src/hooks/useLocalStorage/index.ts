@@ -17,9 +17,9 @@ const useLocalStorage = () => {
   };
 
   const getAll = (): AppStorage => {
-    return Object.keys(StorageKeysEnum).reduce((acc, key) => {
+    return Object.values(StorageKeysEnum).reduce((acc, key) => {
       const value = localStorage.getItem(key);
-      return { ...acc, [key]: value ? JSON.parse(value) : null };
+      return { ...acc, [key]: value ? JSON.parse(value) : {} };
     }, {} as AppStorage);
   };
 

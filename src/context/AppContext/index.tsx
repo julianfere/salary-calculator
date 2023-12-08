@@ -9,10 +9,10 @@ const AppProvider = ({ children }: PropsWithChildren) => {
   const { getAll } = useLocalStorage();
 
   const storedState = getAll();
-  console.log(storedState);
+
   const [state, dispatch] = useReducer(reducer, {
     ...initialState,
-    ...storedState,
+    storedData: { ...initialState.storedData, ...storedState },
   });
 
   return (

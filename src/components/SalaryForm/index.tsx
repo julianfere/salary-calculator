@@ -1,4 +1,13 @@
-import { Button, Card, Descriptions, Form, Input, Select } from "antd";
+import {
+  Button,
+  Card,
+  Descriptions,
+  Form,
+  Input,
+  Select,
+  Tooltip,
+  theme,
+} from "antd";
 import {
   PERCENTAGE_FOR_EIGHT_HOURS,
   PERCENTAGE_FOR_FOUR_HOURS,
@@ -10,6 +19,7 @@ import useLocalStorage from "hooks/useLocalStorage";
 import { useState } from "react";
 import { FinalSalary, calculateNetIncome, humanReadableNumber } from "utils";
 import { StyledFormItem } from "./styles";
+import { setLastSalary } from "context/AppContext/actions";
 
 const hourOptions = [
   {
@@ -43,7 +53,9 @@ const dollarOptions = [
 
 const SalaryForm = () => {
   const [salaryData, setSalaryData] = useState<FinalSalary | null>(null);
+  const [isTooltipOpen, setIsTooltipOpen] = useState(false);
   const [form] = Form.useForm();
+  const { dispatch } = useApp();
   const { set } = useLocalStorage();
   const {
     state: { dolarValueSell },
@@ -59,11 +71,18 @@ const SalaryForm = () => {
       values.plusDollars
     );
 
-    set("LastSalary", {
-      salary: data.netIncome,
+    set("lastSalary", {
+      value: data.netIncome,
       lastUpdated: new Date().toString(),
     });
+
+    dispatch(setLastSalary(data.netIncome));
+
     setSalaryData(data);
+    setIsTooltipOpen(true);
+    setTimeout(() => {
+      setIsTooltipOpen(false);
+    }, 3000);
   };
 
   return (
@@ -101,28 +120,36 @@ const SalaryForm = () => {
             </Button>
           </StyledFormItem>
           <section>
-            <Descriptions title="Cuenta final" bordered>
-              <Descriptions.Item
-                label="Neto"
-                labelStyle={{ color: colorPrimary }}
-              >
-                {humanReadableNumber(salaryData?.netIncome ?? 0) ?? "-"}
-              </Descriptions.Item>
-              <Descriptions.Item
-                label="Dolares"
-                labelStyle={{ color: colorPrimary }}
-              >
-                {humanReadableNumber(salaryData?.netIncomeInDollars ?? 0) ??
-                  "-"}
-              </Descriptions.Item>
-              <Descriptions.Item
-                label="Neto con dolares"
-                labelStyle={{ color: colorPrimary }}
-              >
-                {humanReadableNumber(salaryData?.netIncomePlusDolarBlue ?? 0) ??
-                  "-"}
-              </Descriptions.Item>
-            </Descriptions>
+            <Tooltip
+              title="El valor de Dolares y Neto con dolares podria variar dependiendo la tasa de conversion que se tome en la fecha del pago"
+              color="darkgreen"
+              placement="bottom"
+              open={isTooltipOpen}
+            >
+              <Descriptions title="Cuenta final" bordered>
+                <Descriptions.Item
+                  label="Neto"
+                  labelStyle={{ color: colorPrimary }}
+                >
+                  {humanReadableNumber(salaryData?.netIncome ?? 0) ?? "-"}
+                </Descriptions.Item>
+                <Descriptions.Item
+                  label="Dolares"
+                  labelStyle={{ color: colorPrimary }}
+                >
+                  {humanReadableNumber(salaryData?.netIncomeInDollars ?? 0) ??
+                    "-"}
+                </Descriptions.Item>
+                <Descriptions.Item
+                  label="Neto con dolares"
+                  labelStyle={{ color: colorPrimary }}
+                >
+                  {humanReadableNumber(
+                    salaryData?.netIncomePlusDolarBlue ?? 0
+                  ) ?? "-"}
+                </Descriptions.Item>
+              </Descriptions>
+            </Tooltip>
           </section>
         </section>
       </Form>

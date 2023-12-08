@@ -1,9 +1,9 @@
 export enum StorageKeysEnum {
-  LastSalary = "LastSalary",
-  LastRaise = "LastRaise",
+  LastSalary = "lastSalary",
+  LastRaise = "lastRaise",
 }
 
-export type StorageKeys = keyof typeof StorageKeysEnum;
+export type StorageKeys = `${StorageKeysEnum}`;
 
 export type StoredData = {
   value: number;
