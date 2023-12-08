@@ -1,10 +1,9 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
-import { AppProvider } from "providers";
-import { Home } from "pages";
-import { Layout } from "components";
-
 import "./style.css";
+import AppProvider from "context/AppContext";
+import { ThemeProvider } from "context/Theme";
+import Layout from "components/Layout";
+import Home from "pages/Home";
 
 const router = createBrowserRouter([
   {
@@ -17,7 +16,9 @@ const router = createBrowserRouter([
 
 const App = () => (
   <AppProvider>
-    <RouterProvider router={router} />
+    <ThemeProvider>
+      <RouterProvider router={router} />;
+    </ThemeProvider>
   </AppProvider>
 );
 

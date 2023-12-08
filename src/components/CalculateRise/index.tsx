@@ -1,9 +1,11 @@
-import { Row, Col, Card, Input, Button, Descriptions, Form } from "antd";
+import { Input, Button, Descriptions, Form } from "antd";
 import { useTheme } from "hooks";
 import useLocalStorage from "hooks/useLocalStorage";
 import { useState } from "react";
 
 import { humanReadableNumber } from "utils";
+import { Column, RaiseFormContainer, StyledFormItem } from "./styles";
+import Card from "components/Card";
 
 const CalculateRise = () => {
   const [form] = Form.useForm();
@@ -27,55 +29,45 @@ const CalculateRise = () => {
 
     setResult(() => humanReadableNumber(res));
   };
+
   const { colorPrimary } = useTheme();
 
   return (
-    <Row justify="center">
-      <Col>
-        <Card title="Calcular aumento" type="inner">
-          <Form
-            form={form}
-            layout="vertical"
-            size="large"
-            onFinish={handleSubmit}
-          >
-            <Row justify="center" align="middle" gutter={10}>
-              <Col xl={7} xs={24}>
-                <Form.Item
-                  name="salary"
-                  label="Ultimo sueldo bruto"
-                  labelAlign="right"
-                >
-                  <Input />
-                </Form.Item>
-              </Col>
-              <Col xl={4} xs={24}>
-                <Form.Item name="percentage" label="%">
-                  <Input />
-                </Form.Item>
-              </Col>
-              <Col xl={4} xs={24}>
-                <Form.Item label>
-                  <Button type="primary" htmlType="submit">
-                    Calcular
-                  </Button>
-                </Form.Item>
-              </Col>
-              <Col span={24}>
-                <Descriptions bordered>
-                  <Descriptions.Item
-                    label="Resultado"
-                    labelStyle={{ color: colorPrimary }}
-                  >
-                    {result ?? "-"}
-                  </Descriptions.Item>
-                </Descriptions>
-              </Col>
-            </Row>
-          </Form>
-        </Card>
-      </Col>
-    </Row>
+    <Card title="Calcular aumento">
+      <Form form={form} layout="vertical" size="large" onFinish={handleSubmit}>
+        <RaiseFormContainer>
+          <Column>
+            <StyledFormItem
+              name="salary"
+              label="Ultimo sueldo bruto"
+              labelAlign="right"
+            >
+              <Input />
+            </StyledFormItem>
+            <StyledFormItem
+              name="percentage"
+              label="%"
+              style={{ width: "5rem" }}
+            >
+              <Input />
+            </StyledFormItem>
+            <StyledFormItem label>
+              <Button type="primary" htmlType="submit">
+                Calcular
+              </Button>
+            </StyledFormItem>
+          </Column>
+          <Descriptions bordered>
+            <Descriptions.Item
+              label="Resultado"
+              labelStyle={{ color: colorPrimary }}
+            >
+              {result ?? "-"}
+            </Descriptions.Item>
+          </Descriptions>
+        </RaiseFormContainer>
+      </Form>
+    </Card>
   );
 };
 
