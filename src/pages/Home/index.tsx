@@ -1,6 +1,7 @@
 import { WorkDaysCard, SalaryForm } from "components";
 import CalculateRise from "components/CalculateRise";
 import DollarSection from "components/DollarSection";
+import StatisticsRow from "components/StatisticsRow";
 
 const Home = () => {
   return (
@@ -11,10 +12,20 @@ const Home = () => {
         alignItems: "center",
         gap: "1rem",
         padding: "1rem",
+        height: "100%",
       }}
     >
-      <DollarSection />
-      <WorkDaysCard />
+      <section
+        style={{
+          display: "flex",
+          gap: "1rem",
+          alignItems: "end",
+        }}
+      >
+        <DollarSection />
+        <WorkDaysCard />
+        <StatisticsRow />
+      </section>
       <CalculateRise />
       <SalaryForm />
     </section>

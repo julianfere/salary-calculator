@@ -1,4 +1,4 @@
-import { Col, Skeleton } from "antd";
+import { Col } from "antd";
 import DollarCard from "./components/DollarCard";
 import { useAsync, useFetch } from "hooks";
 import {
@@ -34,7 +34,6 @@ const DollarSection = () => {
         gap: "1rem",
       }}
     >
-      {isLoading && <Skeleton active />}
       {!isLoading && (
         <>
           <Col>

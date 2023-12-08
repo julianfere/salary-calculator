@@ -37,7 +37,7 @@ const WorkDaysCard = () => {
                   textAlign: "center",
                 }}
               >
-                Work days of{" "}
+                Dias habiles{" "}
                 <span style={{ color: colorPrimary }}>
                   {getMonthName(month)}
                 </span>

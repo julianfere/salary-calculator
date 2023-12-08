@@ -1,3 +1,5 @@
+import { AppStorage } from "hooks/useLocalStorage/types";
+
 enum AppStateActions {
   SET_WORK_DAYS = "SET_WORK_DAYS",
   SET_CURRENT_MONTH = "SET_CURRENT_MONTH",
@@ -7,6 +9,7 @@ enum AppStateActions {
 type AppStateContextType = {
   workDays: number;
   dolarValueSell: number;
+  storedData: AppStorage;
   dispatch: (action: Actions) => void;
 };
 

@@ -1,26 +1,16 @@
 const MONTH = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-
-const DAYS = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
+  "Enero",
+  "Febrero",
+  "Marzo",
+  "Abril",
+  "Mayo",
+  "Junio",
+  "Julio",
+  "Agosto",
+  "Septiembre",
+  "Octubre",
+  "Noviembre",
+  "Diciembre",
 ];
 
 const getMonthName = (date: Date | number): string => {
@@ -31,10 +21,6 @@ const getMonthName = (date: Date | number): string => {
   return MONTH[date.getMonth()];
 };
 
-const getDayName = (date: Date): string => {
-  return DAYS[date.getDate()];
-};
-
 const getDateObject = () => {
   const currentDate = new Date();
 
@@ -42,9 +28,8 @@ const getDateObject = () => {
     day: currentDate.getDate(),
     month: currentDate.getMonth() + 1,
     year: currentDate.getFullYear(),
-    dayName: getDayName(currentDate),
     monthName: getMonthName(currentDate),
   };
 };
 
-export { getDayName, getMonthName, getDateObject };
+export { getMonthName, getDateObject };

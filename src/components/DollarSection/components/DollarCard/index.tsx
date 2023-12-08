@@ -41,7 +41,7 @@ const DollarCard = ({ title, value, status, lastUpdated }: DollarCardProps) => {
           />
           {lastUpdated && (
             <Typography.Text type="secondary">
-              Last updated: {lastUpdated}
+              Actualizado: {new Date(lastUpdated).toLocaleDateString()}
             </Typography.Text>
           )}
         </Card>

@@ -13,7 +13,8 @@ const useAppStateContext = () => {
 };
 
 const useAppState = () => {
-  const { workDays, dolarValueSell, dispatch } = useAppStateContext();
+  const { workDays, dolarValueSell, storedData, dispatch } =
+    useAppStateContext();
 
   const setWorkDays = (workDays: number) => {
     dispatch({
@@ -30,6 +31,7 @@ const useAppState = () => {
   };
 
   return {
+    storedData,
     workDays,
     dolarValueSell,
     setWorkDays,
