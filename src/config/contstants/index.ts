@@ -1,0 +1,4 @@
+export const PERCENTAGE_FOR_EIGHT_HOURS = 1;
+export const PERCENTAGE_FOR_SIX_HOURS = 0.75;
+export const PERCENTAGE_FOR_FOUR_HOURS = 0.5;
+export const TAX_PERCENTAGE = 0.17;

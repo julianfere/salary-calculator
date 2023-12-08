@@ -1,19 +1,16 @@
-export enum StorageKeys {
+export enum StorageKeysEnum {
   LastSalary = "LastSalary",
   LastRaise = "LastRaise",
 }
 
-export type LastSalaryStorage = {
-  salary: number;
-  lastUpdated: string;
-};
+export type StorageKeys = keyof typeof StorageKeysEnum;
 
-export type LastRaiseStorage = {
-  raise: number;
+export type StoredData = {
+  value: number;
   lastUpdated: string;
 };
 
 export type AppStorage = {
-  LastSalary: LastSalaryStorage;
-  LastRaise: LastRaiseStorage;
+  lastSalary: StoredData;
+  lastRaise: StoredData;
 };

@@ -1,4 +1,5 @@
-import { Row, Col, Card, Statistic, Typography } from "antd";
+import { Statistic, Typography } from "antd";
+import Card from "components/Card";
 
 type StatisticCardProps = {
   title: string;
@@ -12,16 +13,10 @@ const StatisticCard = ({ title, value, lastUpdated }: StatisticCardProps) => {
     : new Date().toLocaleDateString();
 
   return (
-    <Row>
-      <Col>
-        <Card>
-          <Statistic title={title} value={value} precision={2} prefix={"$"} />
-          <Typography.Text type="secondary">
-            Actualizado: {date}
-          </Typography.Text>
-        </Card>
-      </Col>
-    </Row>
+    <Card>
+      <Statistic title={title} value={value} precision={2} prefix={"$"} />
+      <Typography.Text type="secondary">Actualizado: {date}</Typography.Text>
+    </Card>
   );
 };
 

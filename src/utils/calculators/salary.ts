@@ -1,7 +1,4 @@
-const PERCENTAGE_FOR_EIGHT_HOURS = 1;
-const PERCENTAGE_FOR_SIX_HOURS = 0.75;
-const PERCENTAGE_FOR_FOUR_HOURS = 0.5; // Fuente: ChatGPT
-const TAX_PERCENTAGE = 0.17;
+import { TAX_PERCENTAGE } from "config/contstants";
 
 export type FinalSalary = {
   netIncome: number;
@@ -55,9 +52,4 @@ const calculateNetIncome = (
   };
 };
 
-export {
-  calculateNetIncome,
-  PERCENTAGE_FOR_SIX_HOURS,
-  PERCENTAGE_FOR_EIGHT_HOURS,
-  PERCENTAGE_FOR_FOUR_HOURS,
-};
+export { calculateNetIncome };

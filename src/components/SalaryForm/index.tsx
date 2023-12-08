@@ -1,25 +1,15 @@
+import { Button, Card, Descriptions, Form, Input, Select } from "antd";
 import {
-  Button,
-  Card,
-  Col,
-  Descriptions,
-  Form,
-  Input,
-  Row,
-  Select,
-} from "antd";
-import { useTheme } from "hooks";
-import { useAppState } from "hooks/useAppSate";
-import useLocalStorage from "hooks/useLocalStorage";
-import { useState } from "react";
-import {
-  FinalSalary,
   PERCENTAGE_FOR_EIGHT_HOURS,
   PERCENTAGE_FOR_FOUR_HOURS,
   PERCENTAGE_FOR_SIX_HOURS,
-  calculateNetIncome,
-  humanReadableNumber,
-} from "utils";
+} from "config/contstants";
+import { useTheme } from "hooks";
+import useApp from "hooks/useApp";
+import useLocalStorage from "hooks/useLocalStorage";
+import { useState } from "react";
+import { FinalSalary, calculateNetIncome, humanReadableNumber } from "utils";
+import { StyledFormItem } from "./styles";
 
 const hourOptions = [
   {
@@ -55,7 +45,9 @@ const SalaryForm = () => {
   const [salaryData, setSalaryData] = useState<FinalSalary | null>(null);
   const [form] = Form.useForm();
   const { set } = useLocalStorage();
-  const { dolarValueSell } = useAppState();
+  const {
+    state: { dolarValueSell },
+  } = useApp();
   const { colorPrimary } = useTheme();
 
   const handleSubmit = (values: any) => {
@@ -75,85 +67,66 @@ const SalaryForm = () => {
   };
 
   return (
-    <Row justify="center">
-      <Col>
-        <Card title="Calculadora" type="inner">
-          <Form
-            form={form}
-            layout="vertical"
-            size="large"
-            onFinish={handleSubmit}
+    <Card title="Calcular sueldo">
+      <Form form={form} layout="vertical" size="large" onFinish={handleSubmit}>
+        <section
+          style={{
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <StyledFormItem name="salary" label="Sueldo bruto" labelAlign="right">
+            <Input />
+          </StyledFormItem>
+          <StyledFormItem name="percentage" label="Horas" labelAlign="right">
+            <Select options={hourOptions} size="large" />
+          </StyledFormItem>
+          <StyledFormItem
+            name="dolarPercentage"
+            label="Porcentaje"
+            labelAlign="right"
           >
-            <Row justify="center" align="middle" gutter={10}>
-              <Col xl={7} xs={24}>
-                <Form.Item
-                  name="salary"
-                  label="Sueldo bruto"
-                  labelAlign="right"
-                >
-                  <Input />
-                </Form.Item>
-              </Col>
-              <Col xl={4} xs={24}>
-                <Form.Item name="percentage" label="Horas" labelAlign="right">
-                  <Select options={hourOptions} size="large" />
-                </Form.Item>
-              </Col>
-              <Col xl={3} xs={24}>
-                <Form.Item
-                  name="dolarPercentage"
-                  label="Porcentaje"
-                  labelAlign="right"
-                >
-                  <Select options={dollarOptions} />
-                </Form.Item>
-              </Col>
-              <Col xl={4} xs={24}>
-                <Form.Item
-                  name="plusDollars"
-                  label="Plus (USD)"
-                  labelAlign="right"
-                >
-                  <Input />
-                </Form.Item>
-              </Col>
-              <Col xl={4} xs={24}>
-                <Form.Item label>
-                  <Button type="primary" htmlType="submit">
-                    Calcular
-                  </Button>
-                </Form.Item>
-              </Col>
-              <Col span={24}>
-                <Descriptions title="Cuenta final" bordered>
-                  <Descriptions.Item
-                    label="Neto"
-                    labelStyle={{ color: colorPrimary }}
-                  >
-                    {humanReadableNumber(salaryData?.netIncome ?? 0) ?? "-"}
-                  </Descriptions.Item>
-                  <Descriptions.Item
-                    label="Dolares"
-                    labelStyle={{ color: colorPrimary }}
-                  >
-                    {humanReadableNumber(salaryData?.netIncomeInDollars ?? 0) ??
-                      "-"}
-                  </Descriptions.Item>
-                  <Descriptions.Item
-                    label="Neto con dolares"
-                    labelStyle={{ color: colorPrimary }}
-                  >
-                    {humanReadableNumber(
-                      salaryData?.netIncomePlusDolarBlue ?? 0
-                    ) ?? "-"}
-                  </Descriptions.Item>
-                </Descriptions>
-              </Col>
-            </Row>
-          </Form>
-        </Card>
-      </Col>
-    </Row>
+            <Select options={dollarOptions} />
+          </StyledFormItem>
+          <StyledFormItem
+            name="plusDollars"
+            label="Plus (USD)"
+            labelAlign="right"
+          >
+            <Input />
+          </StyledFormItem>
+          <StyledFormItem label>
+            <Button type="primary" htmlType="submit">
+              Calcular
+            </Button>
+          </StyledFormItem>
+          <section>
+            <Descriptions title="Cuenta final" bordered>
+              <Descriptions.Item
+                label="Neto"
+                labelStyle={{ color: colorPrimary }}
+              >
+                {humanReadableNumber(salaryData?.netIncome ?? 0) ?? "-"}
+              </Descriptions.Item>
+              <Descriptions.Item
+                label="Dolares"
+                labelStyle={{ color: colorPrimary }}
+              >
+                {humanReadableNumber(salaryData?.netIncomeInDollars ?? 0) ??
+                  "-"}
+              </Descriptions.Item>
+              <Descriptions.Item
+                label="Neto con dolares"
+                labelStyle={{ color: colorPrimary }}
+              >
+                {humanReadableNumber(salaryData?.netIncomePlusDolarBlue ?? 0) ??
+                  "-"}
+              </Descriptions.Item>
+            </Descriptions>
+          </section>
+        </section>
+      </Form>
+    </Card>
   );
 };
 
