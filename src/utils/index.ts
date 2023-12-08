@@ -2,7 +2,7 @@ import voidFunction from "./misc/voidFunction";
 import calculateWorkDaysOfMonth, {
   getFestiveDatesOfCurrentMonth,
 } from "./calculators/workdays";
-import { getDayName, getMonthName } from "./date/dateMapper";
+import { getMonthName } from "./date/dateMapper";
 import {
   PERCENTAGE_FOR_EIGHT_HOURS,
   PERCENTAGE_FOR_FOUR_HOURS,
@@ -16,7 +16,6 @@ import { humanReadableNumber } from "./misc/numbers";
 export {
   voidFunction,
   calculateWorkDaysOfMonth,
-  getDayName,
   getMonthName,
   getFestiveDatesOfCurrentMonth,
   calculateNetIncome,

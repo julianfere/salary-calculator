@@ -10,6 +10,7 @@ import {
 } from "antd";
 import { useTheme } from "hooks";
 import { useAppState } from "hooks/useAppSate";
+import useLocalStorage from "hooks/useLocalStorage";
 import { useState } from "react";
 import {
   FinalSalary,
@@ -53,6 +54,7 @@ const dollarOptions = [
 const SalaryForm = () => {
   const [salaryData, setSalaryData] = useState<FinalSalary | null>(null);
   const [form] = Form.useForm();
+  const { set } = useLocalStorage();
   const { dolarValueSell } = useAppState();
   const { colorPrimary } = useTheme();
 
@@ -65,6 +67,10 @@ const SalaryForm = () => {
       values.plusDollars
     );
 
+    set("LastSalary", {
+      salary: data.netIncome,
+      lastUpdated: new Date().toString(),
+    });
     setSalaryData(data);
   };
 

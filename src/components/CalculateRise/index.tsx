@@ -1,5 +1,6 @@
 import { Row, Col, Card, Input, Button, Descriptions, Form } from "antd";
 import { useTheme } from "hooks";
+import useLocalStorage from "hooks/useLocalStorage";
 import { useState } from "react";
 
 import { humanReadableNumber } from "utils";
@@ -7,6 +8,7 @@ import { humanReadableNumber } from "utils";
 const CalculateRise = () => {
   const [form] = Form.useForm();
   const [result, setResult] = useState<string>();
+  const { set } = useLocalStorage();
 
   const handleSubmit = () => {
     const { salary, percentage } = form.getFieldsValue();
@@ -17,6 +19,12 @@ const CalculateRise = () => {
     if (s < 0 || p < 0) return;
 
     const res = s + s * (p / 100);
+
+    set("LastRaise", {
+      raise: res,
+      lastUpdated: new Date().toString(),
+    });
+
     setResult(() => humanReadableNumber(res));
   };
   const { colorPrimary } = useTheme();

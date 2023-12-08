@@ -1,9 +1,20 @@
 import { ReactNode, createContext, useReducer } from "react";
 import { AppStateContextType, Actions, AppStateActions } from "./types";
+import useLocalStorage from "hooks/useLocalStorage";
 
 const initialValue: AppStateContextType = {
   workDays: 0,
   dolarValueSell: 0,
+  storedData: {
+    LastRaise: {
+      raise: 0,
+      lastUpdated: "",
+    },
+    LastSalary: {
+      salary: 0,
+      lastUpdated: "",
+    },
+  },
   dispatch: () => {},
 };
 
@@ -32,8 +43,13 @@ const reducer = (
 };
 
 const AppStateProvider = ({ children }: { children: ReactNode }) => {
-  const [state, dispatch] = useReducer(reducer, initialValue);
+  const { getAll } = useLocalStorage();
+  const storageValues = getAll();
 
+  const [state, dispatch] = useReducer(reducer, {
+    ...initialValue,
+    storedData: { ...storageValues },
+  });
   const value = { ...state, dispatch };
   return (
     <AppStateContext.Provider value={value}>

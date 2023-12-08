@@ -10,7 +10,7 @@ const themeCustom: ThemeConfig = {
     colorSuccess: "#52c41a",
     colorWarning: "#d1a91b",
     wireframe: true,
-    borderRadius: 8,
+    borderRadius: 2,
   },
 };
 
