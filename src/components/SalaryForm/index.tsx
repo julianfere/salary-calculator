@@ -1,13 +1,4 @@
-import {
-  Button,
-  Card,
-  Descriptions,
-  Form,
-  Input,
-  Select,
-  Tooltip,
-  theme,
-} from "antd";
+import { Button, Card, Descriptions, Form, Input, Select, Tooltip } from "antd";
 import {
   PERCENTAGE_FOR_EIGHT_HOURS,
   PERCENTAGE_FOR_FOUR_HOURS,
