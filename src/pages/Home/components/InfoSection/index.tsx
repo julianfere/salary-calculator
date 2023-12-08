@@ -1,7 +1,11 @@
 import Card from "components/Card";
 import DollarCard from "components/DollarCard";
-import { setDolarValueSell } from "context/AppContext/actions";
-import { useAsync, useFetch, useTheme } from "hooks";
+import {
+  setDolarValueSell,
+  setLastRaise,
+  setLastSalary,
+} from "context/AppContext/actions";
+import { useAsync, useFetch, useLocalStorage, useTheme } from "hooks";
 import useApp from "hooks/useApp";
 import { useState } from "react";
 import {
@@ -26,6 +30,7 @@ const InfoSection = () => {
     useFetch();
   const { year, month } = getDateObject();
   const [data, setData] = useState<DolarInfo>({} as DolarInfo);
+  const { clear } = useLocalStorage();
   const fetchDolar = async () => {
     return await callEndpoint(getDollarHistoric());
   };
@@ -45,6 +50,16 @@ const InfoSection = () => {
 
   useAsync(fetchFestiveDays, handleFetchFestiveDays, voidFunction);
   useAsync(fetchDolar, handleFetchDolar, voidFunction);
+
+  const handleClearSalary = () => {
+    clear("lastSalary");
+    dispatch(setLastSalary(0));
+  };
+
+  const handleClearRaise = () => {
+    clear("lastRaise");
+    dispatch(setLastRaise(0));
+  };
 
   return (
     <Card title="Misc">
@@ -71,11 +86,13 @@ const InfoSection = () => {
               title="Sueldo"
               value={state.storedData.lastSalary.value}
               lastUpdated={state.storedData.lastSalary.lastUpdated}
+              clear={handleClearSalary}
             />
             <StatisticCard
               title="Aumento"
               value={state.storedData.lastRaise.value}
               lastUpdated={state.storedData.lastRaise.lastUpdated}
+              clear={handleClearRaise}
             />
           </Container>
         </Card>

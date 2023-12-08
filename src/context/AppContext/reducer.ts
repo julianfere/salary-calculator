@@ -18,6 +18,28 @@ const appReducer = (state: AppState, action: Actions) => {
         ...state,
         currentMonth: action.payload.currentMonth,
       };
+    case AppStateActions.SetLastSalary:
+      return {
+        ...state,
+        storedData: {
+          ...state.storedData,
+          lastSalary: {
+            value: action.payload.lastSalary,
+            lastUpdated: new Date().toISOString(),
+          },
+        },
+      };
+    case AppStateActions.SetLastRaise:
+      return {
+        ...state,
+        storedData: {
+          ...state.storedData,
+          lastRaise: {
+            value: action.payload.lastRaise,
+            lastUpdated: new Date().toISOString(),
+          },
+        },
+      };
     default:
       return state;
   }

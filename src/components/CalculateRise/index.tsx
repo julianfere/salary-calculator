@@ -6,10 +6,13 @@ import { useState } from "react";
 import { humanReadableNumber } from "utils";
 import { Column, RaiseFormContainer, StyledFormItem } from "./styles";
 import Card from "components/Card";
+import useApp from "hooks/useApp";
+import { setLastRaise } from "context/AppContext/actions";
 
 const CalculateRise = () => {
   const [form] = Form.useForm();
   const [result, setResult] = useState<string>();
+  const { dispatch } = useApp();
   const { set } = useLocalStorage();
 
   const handleSubmit = () => {
@@ -20,12 +23,14 @@ const CalculateRise = () => {
 
     if (s < 0 || p < 0) return;
 
-    const res = s + s * (p / 100);
+    const raisedAmount = s * (p / 100);
+    const res = s + raisedAmount;
 
-    set("LastRaise", {
-      raise: res,
+    set("lastRaise", {
+      value: raisedAmount,
       lastUpdated: new Date().toString(),
     });
+    dispatch(setLastRaise(raisedAmount));
 
     setResult(() => humanReadableNumber(res));
   };
