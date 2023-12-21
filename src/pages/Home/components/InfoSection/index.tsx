@@ -45,7 +45,7 @@ const InfoSection = () => {
     await dateCallEndpoint(getFestiveDaysByYear(year));
 
   const handleFetchFestiveDays = async (data: FestiveDatesResponse) => {
-    setFestiveDates(data);
+    setFestiveDates(data ?? []);
   };
 
   useAsync(fetchFestiveDays, handleFetchFestiveDays, voidFunction);
