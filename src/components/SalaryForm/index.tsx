@@ -1,4 +1,4 @@
-import { Button, Card, Descriptions, Form, Input, Select, Tooltip } from "antd";
+import { Card, Descriptions, Form, Input, Select, Tooltip } from "antd";
 import {
   PERCENTAGE_FOR_EIGHT_HOURS,
   PERCENTAGE_FOR_FOUR_HOURS,
@@ -9,7 +9,7 @@ import useApp from "hooks/useApp";
 import useLocalStorage from "hooks/useLocalStorage";
 import { useState } from "react";
 import { FinalSalary, calculateNetIncome, humanReadableNumber } from "utils";
-import { StyledFormItem } from "./styles";
+import { StyledButton, StyledFormItem } from "./styles";
 import { setLastSalary } from "context/AppContext/actions";
 
 const hourOptions = [
@@ -106,9 +106,9 @@ const SalaryForm = () => {
             <Input />
           </StyledFormItem>
           <StyledFormItem label>
-            <Button type="primary" htmlType="submit">
+            <StyledButton type="primary" htmlType="submit">
               Calcular
-            </Button>
+            </StyledButton>
           </StyledFormItem>
           <section>
             <Tooltip
