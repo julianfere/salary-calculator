@@ -16,7 +16,7 @@ export default defineConfig({
       manifest: {
         name: "Snap Dashboard",
         short_name: "Snap Dashboard",
-        theme_color: "#ffffff",
+        theme_color: "#201d1d",
         icons: [
           {
             src: "pwa-64x64.png",
