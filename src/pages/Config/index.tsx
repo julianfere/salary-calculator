@@ -41,6 +41,13 @@ const Config = () => {
     setPlusSwitch(value);
   };
 
+  const handleReset = () => {
+    form.resetFields();
+    dispatch(setConfig({} as AppConfig));
+    saveConfig({} as AppConfig);
+    messageApi.info("Valores reiniciados");
+  };
+
   return (
     <div
       style={{
@@ -102,9 +109,19 @@ const Config = () => {
           <FormItem label="Agregar plus en dolares" name="plusAmount">
             <Input disabled={!plusSwitch} />
           </FormItem>
-          <Button type="primary" htmlType="submit">
-            Guardar
-          </Button>
+          <section
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            <Button type="primary" htmlType="submit">
+              Guardar
+            </Button>
+            <Button type="dashed" onClick={handleReset}>
+              Reiniciar valores
+            </Button>
+          </section>
           <section
             style={{
               marginTop: "1rem",

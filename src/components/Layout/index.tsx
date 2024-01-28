@@ -15,10 +15,10 @@ const Layout = () => {
       }}
     >
       <Drawer open={open} onClose={() => setOpen(false)} placement="left">
-        <NavLink to="/">
+        <NavLink to="/" onClick={() => setOpen(false)}>
           <Typography.Title level={3}>Inicio</Typography.Title>
         </NavLink>
-        <NavLink to="/config">
+        <NavLink to="/config" onClick={() => setOpen(false)}>
           <Typography.Title level={3}>Config</Typography.Title>
         </NavLink>
       </Drawer>
