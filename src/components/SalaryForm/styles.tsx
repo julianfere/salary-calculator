@@ -10,3 +10,8 @@ export const StyledButton = styled(Button)`
     width: 100%;
   }
 `;
+
+export const FormControllContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+`;

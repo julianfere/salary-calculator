@@ -1,9 +1,10 @@
 import { AppStorage } from "hooks/useLocalStorage/types";
 import { Actions } from "./actions";
+import { DolarInfo } from "services/dolarService/types";
 
 type AppState = {
   workDays: number;
-  dolarValueSell: number;
+  dolarInfo: DolarInfo;
   storedData: AppStorage;
 };
 

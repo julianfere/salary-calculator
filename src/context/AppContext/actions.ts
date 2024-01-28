@@ -1,7 +1,9 @@
+import { DolarInfo } from "services/dolarService/types";
+
 enum AppStateActions {
   SetWorkdays = "SET_WORK_DAYS",
   SetCurrentMonth = "SET_CURRENT_MONTH",
-  SetDolarValueSell = "SET_DOLAR_VALUE_SELL",
+  SetDollarInfo = "SET_DOLLAR_INFO",
   SetLastSalary = "SET_LAST_SALARY",
   SetLastRaise = "SET_LAST_RAISE",
 }
@@ -14,17 +16,8 @@ type SetWorkDaysAction = {
 };
 
 type SetDolarValueSellAction = {
-  _tag: AppStateActions.SetDolarValueSell;
-  payload: {
-    dolarValueSell: number;
-  };
-};
-
-type SetCurrentMonthAction = {
-  _tag: AppStateActions.SetCurrentMonth;
-  payload: {
-    currentMonth: string;
-  };
+  _tag: AppStateActions.SetDollarInfo;
+  payload: DolarInfo;
 };
 
 type SetLastSalaryAction = {
@@ -44,30 +37,18 @@ type SetLastRaiseAction = {
 type Actions =
   | SetWorkDaysAction
   | SetDolarValueSellAction
-  | SetCurrentMonthAction
   | SetLastSalaryAction
   | SetLastRaiseAction;
 
-const setDolarValueSell = (
-  dolarValueSell: number
-): SetDolarValueSellAction => ({
-  _tag: AppStateActions.SetDolarValueSell,
-  payload: {
-    dolarValueSell,
-  },
+const setDollarInfo = (payload: DolarInfo): SetDolarValueSellAction => ({
+  _tag: AppStateActions.SetDollarInfo,
+  payload
 });
 
 const setWorkDays = (workDays: number): SetWorkDaysAction => ({
   _tag: AppStateActions.SetWorkdays,
   payload: {
     workDays,
-  },
-});
-
-const setCurrentMonth = (currentMonth: string): SetCurrentMonthAction => ({
-  _tag: AppStateActions.SetCurrentMonth,
-  payload: {
-    currentMonth,
   },
 });
 
@@ -88,9 +69,8 @@ const setLastRaise = (lastRaise: number): SetLastRaiseAction => ({
 export type { Actions };
 export {
   AppStateActions,
-  setDolarValueSell,
+  setDollarInfo,
   setWorkDays,
-  setCurrentMonth,
   setLastSalary,
   setLastRaise,
 };
