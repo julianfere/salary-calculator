@@ -4,10 +4,6 @@ export const MiscContainer = styled.section`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-
-  @media (max-width: 1012px) {
-    flex-direction: column-reverse;
-  }
 `;
 
 export const Container = styled.section`

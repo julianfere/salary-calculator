@@ -9,6 +9,7 @@ const themeCustom: ThemeConfig = {
     colorPrimary: "#00ff66",
     colorSuccess: "#52c41a",
     colorWarning: "#d1a91b",
+    colorLink: "#2cb809",
     wireframe: true,
     borderRadius: 2,
   },

@@ -1,7 +1,20 @@
 import { AppContextType, AppState } from "./types";
 
 export const initialState: AppState = {
-  dolarValueSell: 0,
+  dolarInfo: {
+    blue: {
+      buy: 0,
+      sell: 0,
+      lastUpdated: "",
+      status: "equal",
+    },
+    official: {
+      buy: 0,
+      sell: 0,
+      lastUpdated: "",
+      status: "equal",
+    },
+  },
   workDays: 0,
   storedData: {
     lastSalary: {

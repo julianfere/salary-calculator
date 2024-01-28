@@ -8,15 +8,10 @@ const appReducer = (state: AppState, action: Actions) => {
         ...state,
         workDays: action.payload.workDays,
       };
-    case AppStateActions.SetDolarValueSell:
+    case AppStateActions.SetDollarInfo:
       return {
         ...state,
-        dolarValueSell: action.payload.dolarValueSell,
-      };
-    case AppStateActions.SetCurrentMonth:
-      return {
-        ...state,
-        currentMonth: action.payload.currentMonth,
+        dolarInfo: action.payload,
       };
     case AppStateActions.SetLastSalary:
       return {

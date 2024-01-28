@@ -1,48 +1,26 @@
-import { Card, Descriptions, Form, Input, Select, Tooltip } from "antd";
-import {
-  PERCENTAGE_FOR_EIGHT_HOURS,
-  PERCENTAGE_FOR_FOUR_HOURS,
-  PERCENTAGE_FOR_SIX_HOURS,
-} from "config/contstants";
+import { Card, Descriptions, Form, Tooltip } from "antd";
 import { useTheme } from "hooks";
 import useApp from "hooks/useApp";
 import useLocalStorage from "hooks/useLocalStorage";
 import { useState } from "react";
 import { FinalSalary, calculateNetIncome, humanReadableNumber } from "utils";
-import { StyledButton, StyledFormItem } from "./styles";
+import { FormControllContainer } from "./styles";
 import { setLastSalary } from "context/AppContext/actions";
+import { dollarOptions, hourOptions } from "./constants";
+import SalaryInput from "./components/SalaryInput";
+import HoursInput from "./components/HoursInput";
+import DolarPercentageInput from "./components/DolarPercentageInput";
+import PlusDolarsInput from "./components/PlusDolarsInput";
+import SubmitBtn from "./components/SubmitBtn";
+import ResetBtn from "./components/ResetBtn";
 
-const hourOptions = [
-  {
-    value: PERCENTAGE_FOR_EIGHT_HOURS,
-    label: "8",
-  },
-  {
-    value: PERCENTAGE_FOR_SIX_HOURS,
-    label: "6",
-  },
-  {
-    value: PERCENTAGE_FOR_FOUR_HOURS,
-    label: "4",
-  },
-];
+interface SalaryFormProps {
+  hours?: boolean;
+  percentage?: boolean;
+  plusDollars?: boolean;
+}
 
-const dollarOptions = [
-  {
-    value: 0.15,
-    label: "15%",
-  },
-  {
-    value: 0.2,
-    label: "20%",
-  },
-  {
-    value: 0.35,
-    label: "35%",
-  },
-];
-
-const SalaryForm = () => {
+const SalaryForm = (props: SalaryFormProps) => {
   const [salaryData, setSalaryData] = useState<FinalSalary | null>(null);
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
   const [form] = Form.useForm();
@@ -79,37 +57,21 @@ const SalaryForm = () => {
   return (
     <Card title="Calcular sueldo">
       <Form form={form} layout="vertical" size="large" onFinish={handleSubmit}>
-        <section
-          style={{
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <StyledFormItem name="salary" label="Sueldo bruto" labelAlign="right">
-            <Input />
-          </StyledFormItem>
-          <StyledFormItem name="percentage" label="Horas" labelAlign="right">
-            <Select options={hourOptions} size="large" />
-          </StyledFormItem>
-          <StyledFormItem
-            name="dolarPercentage"
-            label="Porcentaje"
-            labelAlign="right"
+        <FormControllContainer>
+          <SalaryInput />
+          {props.hours && <HoursInput options={hourOptions} />}
+          {props.percentage && <DolarPercentageInput options={dollarOptions} />}
+          {props.plusDollars && <PlusDolarsInput />}
+          <section
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+            }}
           >
-            <Select options={dollarOptions} />
-          </StyledFormItem>
-          <StyledFormItem
-            name="plusDollars"
-            label="Plus (USD)"
-            labelAlign="right"
-          >
-            <Input />
-          </StyledFormItem>
-          <StyledFormItem label>
-            <StyledButton type="primary" htmlType="submit">
-              Calcular
-            </StyledButton>
-          </StyledFormItem>
+            <SubmitBtn />
+            <ResetBtn onclick={() => form.resetFields()} />
+          </section>
+
           <section>
             <Tooltip
               title="El valor de Dolares y Neto con dolares podria variar dependiendo la tasa de conversion que se tome en la fecha del pago"
@@ -124,25 +86,30 @@ const SalaryForm = () => {
                 >
                   {humanReadableNumber(salaryData?.netIncome ?? 0) ?? "-"}
                 </Descriptions.Item>
-                <Descriptions.Item
-                  label="Dolares"
-                  labelStyle={{ color: colorPrimary }}
-                >
-                  {humanReadableNumber(salaryData?.netIncomeInDollars ?? 0) ??
-                    "-"}
-                </Descriptions.Item>
-                <Descriptions.Item
-                  label="Neto con dolares"
-                  labelStyle={{ color: colorPrimary }}
-                >
-                  {humanReadableNumber(
-                    salaryData?.netIncomePlusDolarBlue ?? 0
-                  ) ?? "-"}
-                </Descriptions.Item>
+                {props.percentage && (
+                  <>
+                    <Descriptions.Item
+                      label="Dolares"
+                      labelStyle={{ color: colorPrimary }}
+                    >
+                      {humanReadableNumber(
+                        salaryData?.netIncomeInDollars ?? 0
+                      ) ?? "-"}
+                    </Descriptions.Item>
+                    <Descriptions.Item
+                      label="Neto con dolares"
+                      labelStyle={{ color: colorPrimary }}
+                    >
+                      {humanReadableNumber(
+                        salaryData?.netIncomePlusDolarBlue ?? 0
+                      ) ?? "-"}
+                    </Descriptions.Item>
+                  </>
+                )}
               </Descriptions>
             </Tooltip>
           </section>
-        </section>
+        </FormControllContainer>
       </Form>
     </Card>
   );
