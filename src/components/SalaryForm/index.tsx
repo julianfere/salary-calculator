@@ -18,6 +18,7 @@ interface SalaryFormProps {
   hours?: boolean;
   percentage?: boolean;
   plusDollars?: boolean;
+  dolar?: boolean;
 }
 
 const SalaryForm = (props: SalaryFormProps) => {
@@ -27,17 +28,17 @@ const SalaryForm = (props: SalaryFormProps) => {
   const { dispatch } = useApp();
   const { set } = useLocalStorage();
   const {
-    state: { dolarValueSell },
+    state: { dolarInfo, config },
   } = useApp();
   const { colorPrimary } = useTheme();
 
   const handleSubmit = (values: any) => {
     const data = calculateNetIncome(
       values.salary,
-      values.percentage,
-      dolarValueSell,
-      values.dolarPercentage,
-      values.plusDollars
+      values.percentage ?? config.hours,
+      dolarInfo.blue.sell,
+      values.dolarPercentage ?? config.percentage,
+      values.plusDollars ?? config.plusAmount
     );
 
     set("lastSalary", {
@@ -75,7 +76,7 @@ const SalaryForm = (props: SalaryFormProps) => {
           <section>
             <Tooltip
               title="El valor de Dolares y Neto con dolares podria variar dependiendo la tasa de conversion que se tome en la fecha del pago"
-              color="darkgreen"
+              color="#6b49de"
               placement="bottom"
               open={isTooltipOpen}
             >
@@ -86,7 +87,7 @@ const SalaryForm = (props: SalaryFormProps) => {
                 >
                   {humanReadableNumber(salaryData?.netIncome ?? 0) ?? "-"}
                 </Descriptions.Item>
-                {props.percentage && (
+                {props.dolar && (
                   <>
                     <Descriptions.Item
                       label="Dolares"

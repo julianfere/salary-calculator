@@ -6,6 +6,7 @@ type AppState = {
   workDays: number;
   dolarInfo: DolarInfo;
   storedData: AppStorage;
+  config: AppConfig;
 };
 
 type AppContextType = {
@@ -13,4 +14,12 @@ type AppContextType = {
   dispatch: (action: Actions) => void;
 };
 
-export type { Actions, AppContextType, AppState };
+type AppConfig = {
+  hours?: number;
+  percentage?: number;
+  plus?: boolean;
+  plusAmount?: number;
+  dolar?: boolean;
+};
+
+export type { Actions, AppContextType, AppState, AppConfig };

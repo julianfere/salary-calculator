@@ -35,6 +35,11 @@ const appReducer = (state: AppState, action: Actions) => {
           },
         },
       };
+    case AppStateActions.SetConfig:
+      return {
+        ...state,
+        config: action.payload,
+      };
     default:
       return state;
   }

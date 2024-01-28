@@ -26,6 +26,7 @@ export const initialState: AppState = {
       lastUpdated: "",
     },
   },
+  config: {},
 };
 
 export const initialContext: AppContextType = {
