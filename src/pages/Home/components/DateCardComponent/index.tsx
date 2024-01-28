@@ -3,13 +3,11 @@ import { useFetch, useAsync } from "hooks";
 import { useState } from "react";
 import { getFestiveDaysByYear } from "services";
 import { FestiveDatesResponse } from "services/workDaysService/types";
-import { useTheme } from "styled-components";
 import { getMonthName, calculateWorkDaysOfMonth, voidFunction } from "utils";
 import { getDateObject } from "utils/date/dateMapper";
 
 const DateCardComponent = () => {
   const [festiveDates, setFestiveDates] = useState<FestiveDatesResponse>([]);
-  // const { colorPrimary } = useTheme();
   const { isLoading: dateisLoading, callEndpoint: dateCallEndpoint } =
     useFetch();
   const { year, month } = getDateObject();
