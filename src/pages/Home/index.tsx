@@ -9,12 +9,19 @@ import {
 } from "./styled";
 import DateCardComponent from "./components/DateCardComponent";
 import DollarInfoCard from "./DollarInfoCard";
+import useApp from "hooks/useApp";
 
 const Home = () => {
+  const { state } = useApp();
   return (
-    <Container style={{}}>
+    <Container>
       <FirstSection>
-        <SalaryForm hours percentage plusDollars />
+        <SalaryForm
+          hours={!state.config.hours}
+          percentage={!state.config.percentage}
+          plusDollars={state.config.plus}
+          dolar={state.config.dolar}
+        />
       </FirstSection>
       <SecondSection>
         <DollarInfoCard />

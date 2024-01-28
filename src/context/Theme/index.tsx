@@ -5,13 +5,18 @@ const { darkAlgorithm } = theme;
 
 const themeCustom: ThemeConfig = {
   algorithm: darkAlgorithm,
+  // token: {
+  //   colorPrimary: "#00ff66",
+  //   colorSuccess: "#52c41a",
+  //   colorWarning: "#d1a91b",
+  //   colorLink: "#2cb809",
+  //   wireframe: true,
+  //   borderRadius: 2,
+  // },
   token: {
-    colorPrimary: "#00ff66",
-    colorSuccess: "#52c41a",
-    colorWarning: "#d1a91b",
-    colorLink: "#2cb809",
-    wireframe: true,
-    borderRadius: 2,
+    colorPrimary: "#6b49de",
+    colorSuccess: "#9451a8",
+    colorInfo: "#6b49de",
   },
 };
 

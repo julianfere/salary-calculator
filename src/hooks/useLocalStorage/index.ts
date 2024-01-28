@@ -1,3 +1,4 @@
+import { AppConfig } from "context/AppContext/types";
 import { AppStorage, StorageKeys, StorageKeysEnum, StoredData } from "./types";
 
 const useLocalStorage = () => {
@@ -12,6 +13,12 @@ const useLocalStorage = () => {
     localStorage.setItem(key, JSON.stringify(value));
   };
 
+  const saveConfig = (value: AppConfig) => {
+    if (!value) return;
+
+    localStorage.setItem(StorageKeysEnum.Config, JSON.stringify(value));
+  };
+
   const clear = (key: StorageKeys) => {
     localStorage.removeItem(key);
   };
@@ -23,7 +30,12 @@ const useLocalStorage = () => {
     }, {} as AppStorage);
   };
 
-  return { get, set, clear, getAll };
+  const getConfig = (): AppConfig => {
+    const value = localStorage.getItem(StorageKeysEnum.Config);
+    return value ? JSON.parse(value) : {};
+  };
+
+  return { get, set, clear, getAll, saveConfig, getConfig };
 };
 
 export default useLocalStorage;

@@ -34,7 +34,7 @@ const DateCardComponent = () => {
         }}
       >
         Dias habiles{" "}
-        <span style={{ color: "green" }}>{getMonthName(month)}</span>:{" "}
+        <span style={{ color: "#6b49de" }}>{getMonthName(month)}</span>:{" "}
         {calculateWorkDaysOfMonth(festiveDates)}
       </Typography.Title>
     </Card>

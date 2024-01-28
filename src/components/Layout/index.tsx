@@ -1,7 +1,39 @@
-import { Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
+import LayoutAnt, { Content } from "antd/es/layout/layout";
+import { useState } from "react";
+import { Drawer, Typography } from "antd";
+import { StyledHeader, StyledMenuIcon } from "./styles";
+import "style.css";
 
 const Layout = () => {
-  return <Outlet />;
+  const [open, setOpen] = useState(false);
+
+  return (
+    <LayoutAnt
+      style={{
+        height: "100%",
+      }}
+    >
+      <Drawer open={open} onClose={() => setOpen(false)} placement="left">
+        <NavLink to="/">
+          <Typography.Title level={3}>Inicio</Typography.Title>
+        </NavLink>
+        <NavLink to="/config">
+          <Typography.Title level={3}>Config</Typography.Title>
+        </NavLink>
+      </Drawer>
+      <StyledHeader>
+        <StyledMenuIcon onClick={() => setOpen(true)} />
+      </StyledHeader>
+      <Content
+        style={{
+          height: "100%",
+        }}
+      >
+        <Outlet />
+      </Content>
+    </LayoutAnt>
+  );
 };
 
 export default Layout;

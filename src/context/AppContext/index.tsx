@@ -6,12 +6,14 @@ import { useLocalStorage } from "hooks";
 export const AppContext = createContext(initialContext);
 
 const AppProvider = ({ children }: PropsWithChildren) => {
-  const { getAll } = useLocalStorage();
+  const { getAll, getConfig } = useLocalStorage();
 
   const storedState = getAll();
-
+  const config = getConfig();
+  console.log(config);
   const [state, dispatch] = useReducer(reducer, {
     ...initialState,
+    config,
     storedData: { ...initialState.storedData, ...storedState },
   });
 

@@ -1,4 +1,5 @@
 import { DolarInfo } from "services/dolarService/types";
+import { AppConfig } from "./types";
 
 enum AppStateActions {
   SetWorkdays = "SET_WORK_DAYS",
@@ -6,6 +7,7 @@ enum AppStateActions {
   SetDollarInfo = "SET_DOLLAR_INFO",
   SetLastSalary = "SET_LAST_SALARY",
   SetLastRaise = "SET_LAST_RAISE",
+  SetConfig = "SET_CONFIG",
 }
 
 type SetWorkDaysAction = {
@@ -34,15 +36,21 @@ type SetLastRaiseAction = {
   };
 };
 
+type SetConfigAction = {
+  _tag: AppStateActions.SetConfig;
+  payload: AppConfig
+};
+
 type Actions =
   | SetWorkDaysAction
   | SetDolarValueSellAction
   | SetLastSalaryAction
-  | SetLastRaiseAction;
+  | SetLastRaiseAction
+  | SetConfigAction;
 
 const setDollarInfo = (payload: DolarInfo): SetDolarValueSellAction => ({
   _tag: AppStateActions.SetDollarInfo,
-  payload
+  payload,
 });
 
 const setWorkDays = (workDays: number): SetWorkDaysAction => ({
@@ -66,6 +74,11 @@ const setLastRaise = (lastRaise: number): SetLastRaiseAction => ({
   },
 });
 
+const setConfig = (payload: AppConfig): SetConfigAction => ({
+  _tag: AppStateActions.SetConfig,
+  payload,
+});
+
 export type { Actions };
 export {
   AppStateActions,
@@ -73,4 +86,5 @@ export {
   setWorkDays,
   setLastSalary,
   setLastRaise,
+  setConfig,
 };

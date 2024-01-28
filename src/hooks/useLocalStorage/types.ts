@@ -1,6 +1,7 @@
 export enum StorageKeysEnum {
   LastSalary = "lastSalary",
   LastRaise = "lastRaise",
+  Config = "config",
 }
 
 export type StorageKeys = `${StorageKeysEnum}`;
