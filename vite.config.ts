@@ -17,6 +17,9 @@ export default defineConfig({
         name: "Snap Dashboard",
         short_name: "Snap Dashboard",
         theme_color: "#201d1d",
+        background_color: "#201d1d",
+        display: "standalone",
+        description: "Calculator app",
         icons: [
           {
             src: "pwa-64x64.png",
