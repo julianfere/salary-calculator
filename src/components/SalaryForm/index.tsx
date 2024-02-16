@@ -20,7 +20,7 @@ interface SalaryFormProps {
   percentage?: boolean;
   plusDollars?: boolean;
   dolar?: boolean;
-  pesosPlus?: boolean;
+  pesosPlus?: number;
 }
 
 const SalaryForm = (props: SalaryFormProps) => {
@@ -66,7 +66,7 @@ const SalaryForm = (props: SalaryFormProps) => {
           {props.hours && <HoursInput options={hourOptions} />}
           {props.percentage && <DolarPercentageInput options={dollarOptions} />}
           {props.plusDollars && <PlusDolarsInput />}
-          {props.pesosPlus && <PlusPesosInput />}
+          {!props.pesosPlus && <PlusPesosInput />}
           <section
             style={{
               display: "flex",
@@ -111,12 +111,12 @@ const SalaryForm = (props: SalaryFormProps) => {
                     </Descriptions.Item>
                   </>
                 )}
-                {salaryData?.plusPesos && (
+                {!!props.pesosPlus && (
                   <Descriptions.Item
                     label="Plus en pesos"
                     labelStyle={{ color: colorPrimary }}
                   >
-                    {humanReadableNumber(salaryData?.plusPesos ?? 0) ?? "-"}
+                    {humanReadableNumber(props.pesosPlus ?? 0) ?? "-"}
                   </Descriptions.Item>
                 )}
               </Descriptions>
