@@ -13,12 +13,14 @@ import DolarPercentageInput from "./components/DolarPercentageInput";
 import PlusDolarsInput from "./components/PlusDolarsInput";
 import SubmitBtn from "./components/SubmitBtn";
 import ResetBtn from "./components/ResetBtn";
+import PlusPesosInput from "./components/PlusPesosInput";
 
 interface SalaryFormProps {
   hours?: boolean;
   percentage?: boolean;
   plusDollars?: boolean;
   dolar?: boolean;
+  pesosPlus?: boolean;
 }
 
 const SalaryForm = (props: SalaryFormProps) => {
@@ -38,7 +40,8 @@ const SalaryForm = (props: SalaryFormProps) => {
       values.percentage ?? config.hours,
       dolarInfo.blue.sell,
       values.dolarPercentage ?? config.percentage,
-      values.plusDollars ?? config.plusAmount
+      values.plusDollars ?? config.plusAmount,
+      values.plusPesos ?? config.plusAmount
     );
 
     set("lastSalary", {
@@ -63,14 +66,15 @@ const SalaryForm = (props: SalaryFormProps) => {
           {props.hours && <HoursInput options={hourOptions} />}
           {props.percentage && <DolarPercentageInput options={dollarOptions} />}
           {props.plusDollars && <PlusDolarsInput />}
+          {props.pesosPlus && <PlusPesosInput />}
           <section
             style={{
               display: "flex",
               justifyContent: "space-between",
             }}
           >
-            <SubmitBtn />
             <ResetBtn onclick={() => form.resetFields()} />
+            <SubmitBtn />
           </section>
 
           <section>
@@ -106,6 +110,14 @@ const SalaryForm = (props: SalaryFormProps) => {
                       ) ?? "-"}
                     </Descriptions.Item>
                   </>
+                )}
+                {salaryData?.plusPesos && (
+                  <Descriptions.Item
+                    label="Plus en pesos"
+                    labelStyle={{ color: colorPrimary }}
+                  >
+                    {humanReadableNumber(salaryData?.plusPesos ?? 0) ?? "-"}
+                  </Descriptions.Item>
                 )}
               </Descriptions>
             </Tooltip>

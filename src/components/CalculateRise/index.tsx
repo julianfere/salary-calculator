@@ -47,14 +47,14 @@ const CalculateRise = () => {
               label="Ultimo sueldo bruto"
               labelAlign="right"
             >
-              <Input />
+              <Input type="phone" />
             </StyledFormItem>
             <StyledFormItem
               name="percentage"
               label="%"
               style={{ width: "5rem" }}
             >
-              <Input />
+              <Input type="phone" />
             </StyledFormItem>
             <StyledFormItem label>
               <Button type="primary" htmlType="submit">

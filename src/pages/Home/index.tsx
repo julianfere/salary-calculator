@@ -21,6 +21,7 @@ const Home = () => {
           percentage={!state.config.percentage}
           plusDollars={state.config.plus}
           dolar={state.config.dolar}
+          pesosPlus={!state.config.pesosPlus}
         />
       </FirstSection>
       <SecondSection>

@@ -1,8 +1,12 @@
-const humanReadableNumber = (value: number, lang?: string) => {
+const humanReadableNumber = (value: number) => {
+  const formatter = Intl.NumberFormat("es-AR", {
+    style: "currency",
+    currency: "ARS",
+    minimumFractionDigits: 0,
+  });
   if (!value) return;
-  const locale = lang || document.documentElement.lang || "es";
 
-  return value.toLocaleString(locale);
+  return formatter.format(value);
 };
 
 export { humanReadableNumber };

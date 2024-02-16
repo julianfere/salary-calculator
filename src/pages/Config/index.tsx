@@ -13,11 +13,13 @@ const Config = () => {
   const [form] = Form.useForm<AppConfig>();
   const [dolarSwitch, setDolarSwitch] = useState(state.config.dolar);
   const [plusSwitch, setPlusSwitch] = useState(state.config.plus);
+  const [pesosPlusSwitch, setPesosPlusSwitch] = useState(
+    !!state.config.pesosPlus
+  );
   const { saveConfig } = useLocalStorage();
   const [messageApi, contextHolder] = message.useMessage();
 
   const handleSumit = (values: AppConfig) => {
-    console.log(values);
     dispatch(setConfig(values));
     saveConfig(values);
     messageApi.success("Configuración guardada");
@@ -30,6 +32,14 @@ const Config = () => {
 
     form.setFieldValue("dolar", value);
     setDolarSwitch(value);
+  };
+
+  const handlePesosPlusSwitch = (value: boolean) => {
+    if (!value) {
+      form.resetFields(["pesosPlus"]);
+    }
+
+    setPesosPlusSwitch(value);
   };
 
   const handlePlusSwitch = (value: boolean) => {
@@ -100,14 +110,24 @@ const Config = () => {
             <FormItem label="Cobras un plus en dólares?" name="plus">
               <Switch
                 onChange={handlePlusSwitch}
-                defaultChecked={state.config.dolar}
+                defaultChecked={plusSwitch}
                 disabled={!dolarSwitch}
               />{" "}
               {plusSwitch ? "Sí" : "No"}
             </FormItem>
           </section>
           <FormItem label="Agregar plus en dolares" name="plusAmount">
-            <Input disabled={!plusSwitch} />
+            <Input type="phone" disabled={!plusSwitch} />
+          </FormItem>
+          <FormItem label="Cobras un plus en pesos?" name="pesosPlusSwitch">
+            <Switch
+              onChange={handlePesosPlusSwitch}
+              defaultChecked={!pesosPlusSwitch}
+            />{" "}
+            {pesosPlusSwitch ? "Sí" : "No"}
+          </FormItem>
+          <FormItem label="Agregar plus en pesos" name="pesosPlus">
+            <Input type="phone" disabled={!pesosPlusSwitch} />
           </FormItem>
           <section
             style={{
@@ -115,11 +135,11 @@ const Config = () => {
               justifyContent: "space-between",
             }}
           >
-            <Button type="primary" htmlType="submit">
-              Guardar
-            </Button>
             <Button type="dashed" onClick={handleReset}>
               Reiniciar valores
+            </Button>
+            <Button type="primary" htmlType="submit">
+              Guardar
             </Button>
           </section>
           <section

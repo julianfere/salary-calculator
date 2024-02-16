@@ -20,6 +20,7 @@ type AppConfig = {
   plus?: boolean;
   plusAmount?: number;
   dolar?: boolean;
+  pesosPlus?: number;
 };
 
 export type { Actions, AppContextType, AppState, AppConfig };

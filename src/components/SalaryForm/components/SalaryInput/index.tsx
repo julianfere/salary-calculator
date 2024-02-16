@@ -4,7 +4,7 @@ import { StyledFormItem } from "components/SalaryForm/styles";
 const SalaryInput = () => {
   return (
     <StyledFormItem name="salary" label="Sueldo bruto" labelAlign="right">
-      <Input />
+      <Input type="phone" />
     </StyledFormItem>
   );
 };

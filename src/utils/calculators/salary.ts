@@ -5,6 +5,7 @@ export type FinalSalary = {
   netIncomeInDollars: number;
   netIncomePlusDolarBlue: number;
   plusDollars: number;
+  plusPesos: number;
 };
 
 const normalizeNumber = (value: number) => {
@@ -21,9 +22,11 @@ const calculateNetIncome = (
   percentage: number,
   dolarValue: number,
   dolarPercentage = 1,
-  plusDollars = 0
+  plusDollars = 0,
+  plusPesos = 0
 ): FinalSalary => {
   const skipDolar = dolarPercentage === 1;
+  const normalizedPlusPesos = normalizeNumber(plusPesos);
   const salary = normalizeNumber(grossIncome);
   const grossByHour = salary * percentage;
   const grossInPesos = skipDolar
@@ -34,21 +37,24 @@ const calculateNetIncome = (
 
   if (skipDolar)
     return {
-      netIncome,
+      netIncome: netIncome + normalizedPlusPesos,
       netIncomeInDollars: 0,
       netIncomePlusDolarBlue: 0,
       plusDollars,
+      plusPesos,
     };
 
   const netIncomeInDollars = (salary * dolarPercentage) / dolarValue;
   const netIncomePlusDolarBlue =
-    netIncome + (netIncomeInDollars + plusDollars) * dolarValue;
-
+    netIncome +
+    normalizedPlusPesos +
+    (netIncomeInDollars + plusDollars) * dolarValue;
   return {
-    netIncome,
+    netIncome: netIncome + normalizedPlusPesos,
     netIncomeInDollars,
     netIncomePlusDolarBlue,
     plusDollars,
+    plusPesos,
   };
 };
 
