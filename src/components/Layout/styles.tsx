@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Header } from "antd/es/layout/layout";
+//@ts-ignore
 import { ReactComponent as MenuIcon } from "@assets/icons/menu.svg";
 
 export const StyledHeader = styled(Header)`
