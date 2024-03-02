@@ -1,5 +1,4 @@
-import { Statistic, Typography } from "antd";
-import Card from "components/Card";
+import { Card, Statistic, Typography } from "antd";
 
 type StatisticCardProps = {
   title: string;

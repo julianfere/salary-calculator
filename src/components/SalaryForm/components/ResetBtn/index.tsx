@@ -1,4 +1,4 @@
-import { StyledButton, StyledFormItem } from "components/SalaryForm/styles";
+import { StyledButton, StyledFormItem } from "@components/SalaryForm/styles";
 
 const ResetBtn = ({ onclick }: { onclick: () => void }) => {
   return (

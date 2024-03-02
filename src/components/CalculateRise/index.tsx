@@ -1,19 +1,19 @@
-import { Input, Button, Descriptions, Form } from "antd";
-import { useTheme } from "hooks";
-import useLocalStorage from "hooks/useLocalStorage";
+import { Button, Descriptions, Form, Card } from "antd";
+import { useTheme } from "@hooks/useTheme";
+import { useLocalStorage } from "@julianfere/react-utility-hooks"
 import { useState } from "react";
 
-import { humanReadableNumber } from "utils";
+import { humanReadableNumber } from "@utils/NumberUtils";
 import { Column, RaiseFormContainer, StyledFormItem } from "./styles";
-import Card from "components/Card";
-import useApp from "hooks/useApp";
-import { setLastRaise } from "context/AppContext/actions";
+import useDashboard from "@hooks/useDashboard";
+import { IStore } from "@entities/Storage";
+import NumericInput from "@components/NumericInput";
 
 const CalculateRise = () => {
   const [form] = Form.useForm();
   const [result, setResult] = useState<string>();
-  const { dispatch } = useApp();
-  const { set } = useLocalStorage();
+  const { updateContext } = useDashboard();
+  const { setItem } = useLocalStorage<IStore>();
 
   const handleSubmit = () => {
     const { salary, percentage } = form.getFieldsValue();
@@ -26,11 +26,11 @@ const CalculateRise = () => {
     const raisedAmount = s * (p / 100);
     const res = s + raisedAmount;
 
-    set("lastRaise", {
+    setItem("raise", {
       value: raisedAmount,
-      lastUpdated: new Date().toString(),
+      lastUpdate: new Date().toString(),
     });
-    dispatch(setLastRaise(raisedAmount));
+    updateContext({ raise: { value: raisedAmount, lastUpdate: new Date().toString() } });
 
     setResult(() => humanReadableNumber(res));
   };
@@ -47,14 +47,14 @@ const CalculateRise = () => {
               label="Ultimo sueldo bruto"
               labelAlign="right"
             >
-              <Input type="phone" />
+              <NumericInput />
             </StyledFormItem>
             <StyledFormItem
               name="percentage"
-              label="%"
+              label=" "
               style={{ width: "5rem" }}
             >
-              <Input type="phone" />
+              <NumericInput addonBefore="%" />
             </StyledFormItem>
             <StyledFormItem label>
               <Button type="primary" htmlType="submit">

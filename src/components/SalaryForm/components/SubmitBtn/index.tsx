@@ -1,4 +1,4 @@
-import { StyledButton, StyledFormItem } from "components/SalaryForm/styles";
+import { StyledButton, StyledFormItem } from "@components/SalaryForm/styles";
 
 const SubmitBtn = () => {
   return (

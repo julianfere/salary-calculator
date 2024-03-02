@@ -1,5 +1,5 @@
 import { Select } from "antd";
-import { StyledFormItem } from "components/SalaryForm/styles";
+import { StyledFormItem } from "@components/SalaryForm/styles";
 
 const DolarPercentageInput = ({
   options,

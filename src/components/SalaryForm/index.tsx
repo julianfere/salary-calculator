@@ -1,12 +1,9 @@
 import { Card, Descriptions, Form, Tooltip } from "antd";
-import { useTheme } from "hooks";
-import useApp from "hooks/useApp";
-import useLocalStorage from "hooks/useLocalStorage";
+import { useTheme } from "@hooks/useTheme";
+import { useLocalStorage } from "@julianfere/react-utility-hooks";
 import { useState } from "react";
-import { FinalSalary, calculateNetIncome, humanReadableNumber } from "utils";
 import { FormControllContainer } from "./styles";
-import { setLastSalary } from "context/AppContext/actions";
-import { dollarOptions, hourOptions } from "./constants";
+import { dollarOptions, hourOptions } from "../../constants";
 import SalaryInput from "./components/SalaryInput";
 import HoursInput from "./components/HoursInput";
 import DolarPercentageInput from "./components/DolarPercentageInput";
@@ -14,6 +11,11 @@ import PlusDolarsInput from "./components/PlusDolarsInput";
 import SubmitBtn from "./components/SubmitBtn";
 import ResetBtn from "./components/ResetBtn";
 import PlusPesosInput from "./components/PlusPesosInput";
+import useDashboard from "@hooks/useDashboard";
+import { IStore } from "@entities/Storage";
+import { IFinalSalary } from "@entities/Salary";
+import useSalaryCalculator from "@hooks/useSalaryCalculator";
+import { humanReadableNumber } from "@utils/NumberUtils";
 
 interface SalaryFormProps {
   hours?: boolean;
@@ -24,32 +26,32 @@ interface SalaryFormProps {
 }
 
 const SalaryForm = (props: SalaryFormProps) => {
-  const [salaryData, setSalaryData] = useState<FinalSalary | null>(null);
+  const [salaryData, setSalaryData] = useState<IFinalSalary | null>(null);
   const [isTooltipOpen, setIsTooltipOpen] = useState(false);
   const [form] = Form.useForm();
-  const { dispatch } = useApp();
-  const { set } = useLocalStorage();
-  const {
-    state: { dolarInfo, config },
-  } = useApp();
+  const { setItem } = useLocalStorage<IStore>();
+  const { config, updateContext } = useDashboard();
   const { colorPrimary } = useTheme();
+  const { calculate } = useSalaryCalculator();
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSubmit = (values: any) => {
-    const data = calculateNetIncome(
-      values.salary,
-      values.percentage ?? config.hours,
-      dolarInfo.blue.sell,
-      values.dolarPercentage ?? config.percentage,
-      values.plusDollars ?? config.plusAmount,
-      values.plusPesos ?? config.plusAmount
+    const data = calculate(
+      {
+        netIncome: values.salary,
+        hoursPercentage: values.percentage ?? config.hours,
+        dollarPercentage: values.dolarPercentage ?? config.dollarPercentage,
+        plusDollars: values.plusDollars ?? config.dollarPlus,
+        plusPesos: values.plusPesos ?? config.pesosPlus,
+      }
     );
 
-    set("lastSalary", {
+    setItem("salary", {
       value: data.netIncome,
-      lastUpdated: new Date().toString(),
+      lastUpdate: new Date().toString(),
     });
 
-    dispatch(setLastSalary(data.netIncome));
+    updateContext({ salary: { value: data.netIncome, lastUpdate: new Date().toString() } })
 
     setSalaryData(data);
     setIsTooltipOpen(true);

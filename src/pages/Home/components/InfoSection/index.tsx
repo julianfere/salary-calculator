@@ -1,22 +1,22 @@
-import Card from "components/Card";
-import { setLastRaise, setLastSalary } from "context/AppContext/actions";
-import { useLocalStorage } from "hooks";
-import useApp from "hooks/useApp";
-import StatisticCard from "components/StatisticCard";
+import { useLocalStorage } from "@julianfere/react-utility-hooks";
+import StatisticCard from "@components/StatisticCard";
 import { MiscContainer, Container } from "./styles";
+import useDashboard from "@hooks/useDashboard";
+import { IStore } from "@entities/Storage";
+import { Card } from "antd";
 
 const InfoSection = () => {
-  const { dispatch, state } = useApp();
-  const { clear } = useLocalStorage();
+  const { updateContext, salary, raise } = useDashboard();
+  const { removeItem } = useLocalStorage<IStore>();
 
   const handleClearSalary = () => {
-    clear("lastSalary");
-    dispatch(setLastSalary(0));
+    removeItem("salary");
+    updateContext({ salary: {lastUpdate: new Date().toString(), value: 0} })
   };
 
   const handleClearRaise = () => {
-    clear("lastRaise");
-    dispatch(setLastRaise(0));
+    removeItem("raise");
+    updateContext({ raise: {lastUpdate: new Date().toString(), value: 0} })
   };
 
   return (
@@ -25,14 +25,14 @@ const InfoSection = () => {
         <Container>
           <StatisticCard
             title="Sueldo"
-            value={state.storedData.lastSalary.value}
-            lastUpdated={state.storedData.lastSalary.lastUpdated}
+            value={salary.value}
+            lastUpdated={salary.lastUpdate}
             clear={handleClearSalary}
           />
           <StatisticCard
             title="Aumento"
-            value={state.storedData.lastRaise.value}
-            lastUpdated={state.storedData.lastRaise.lastUpdated}
+            value={raise.value}
+            lastUpdated={raise.lastUpdate}
             clear={handleClearRaise}
           />
         </Container>

@@ -1,37 +1,32 @@
-import CalculateRise from "components/CalculateRise";
-import SalaryForm from "components/SalaryForm";
+import CalculateRise from "@components/CalculateRise";
+import SalaryForm from "@components/SalaryForm";
 import InfoSection from "./components/InfoSection";
 import {
   Container,
   FirstSection,
   SecondSection,
-  ThirthSection,
 } from "./styled";
-import DateCardComponent from "./components/DateCardComponent";
 import DollarInfoCard from "./DollarInfoCard";
-import useApp from "hooks/useApp";
+import useDashboard from "@hooks/useDashboard";
 
 const Home = () => {
-  const { state } = useApp();
+  const { config } = useDashboard();
   return (
     <Container>
       <FirstSection>
         <SalaryForm
-          hours={!state.config.hours}
-          percentage={!state.config.percentage}
-          plusDollars={state.config.plus}
-          dolar={state.config.dolar}
-          pesosPlus={state.config.pesosPlus}
+          hours={!config.hours}
+          percentage={!config.dollarPercentage}
+          plusDollars={!config.dollarPlus}
+          dolar={!config.calculateDollars}
+          pesosPlus={config.pesosPlus}
         />
       </FirstSection>
       <SecondSection>
         <DollarInfoCard />
-        <DateCardComponent />
         <CalculateRise />
-      </SecondSection>
-      <ThirthSection>
         <InfoSection />
-      </ThirthSection>
+      </SecondSection>
     </Container>
   );
 };
