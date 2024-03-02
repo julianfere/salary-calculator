@@ -2,6 +2,7 @@ import Layout from "@components/Layout";
 import DashboardProvider from "@hooks/useDashboard/context";
 import { ThemeProvider } from "@hooks/useTheme/context";
 import Home from "@pages/Home";
+//@ts-ignore
 import Config from "@pages/config";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
