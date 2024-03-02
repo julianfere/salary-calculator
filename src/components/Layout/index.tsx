@@ -3,7 +3,6 @@ import LayoutAnt, { Content } from "antd/es/layout/layout";
 import { useState } from "react";
 import { Drawer, Typography } from "antd";
 import { StyledHeader, StyledMenuIcon } from "./styles";
-import "style.css";
 
 const Layout = () => {
   const [open, setOpen] = useState(false);

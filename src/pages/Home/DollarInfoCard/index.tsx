@@ -1,16 +1,8 @@
 import { Card, Descriptions } from "antd";
-import DollarCard from "components/DollarCard";
-import { setDollarInfo } from "context/AppContext/actions";
-import { useFetch, useAsync, useLocalStorage } from "hooks";
-import useApp from "hooks/useApp";
-import {
-  calculateLatestDollar,
-  getDollarHistoric,
-} from "services/dolarService";
-import { DollarHistory } from "services/dolarService/types";
-import { humanReadableNumber, voidFunction } from "utils";
+import DollarCard from "@components/DollarCard";
 import styled from "styled-components";
-import { useMemo } from "react";
+import useDashboard from "@hooks/useDashboard";
+import { humanReadableNumber } from "@utils/NumberUtils";
 
 const CardsContainer = styled.section`
   display: flex;
@@ -24,24 +16,9 @@ const CardsContainer = styled.section`
 `;
 
 const DollarInfoCard = () => {
-  const { isLoading, callEndpoint } = useFetch();
-  const { dispatch, state } = useApp();
-  const { getConfig } = useLocalStorage();
-
-  const config = useMemo(() => getConfig(), [getConfig]);
+  const { config, dollar } = useDashboard();
 
   const showConfig = Object.keys(config).length > 0;
-
-  const handleFetchDolar = async (data: DollarHistory) => {
-    const dollar = calculateLatestDollar(data);
-    dispatch(setDollarInfo(dollar));
-  };
-
-  const fetchDolar = async () => {
-    return await callEndpoint(getDollarHistoric());
-  };
-
-  useAsync(fetchDolar, handleFetchDolar, voidFunction);
 
   const hoursMap = {
     0.5: "4",
@@ -50,7 +27,7 @@ const DollarInfoCard = () => {
   } as const;
 
   return (
-    <Card loading={isLoading}>
+    <Card>
       <CardsContainer>
         {showConfig && (
           <Card title="Config">
@@ -60,14 +37,14 @@ const DollarInfoCard = () => {
                   {hoursMap[config.hours as keyof typeof hoursMap]}
                 </Descriptions.Item>
               )}
-              {config.dolar && (
+              {dollar && (
                 <Descriptions.Item label="Porcentaje">
-                  %{(config.percentage ?? 0) * 100}
+                  %{(config.dollarPercentage ?? 0) * 100}
                 </Descriptions.Item>
               )}
-              {config.plus && (
+              {config.dollarPlus && (
                 <Descriptions.Item label="Plus">
-                  {config.plusAmount}
+                  {config.dollarPlus}
                 </Descriptions.Item>
               )}
               {config.pesosPlus && (
@@ -80,15 +57,15 @@ const DollarInfoCard = () => {
         )}
         <DollarCard
           title="Official"
-          value={state.dolarInfo.official.buy}
-          lastUpdated={state?.dolarInfo?.official?.lastUpdated}
-          status={state?.dolarInfo?.official?.status}
+          value={dollar.official.buy}
+          lastUpdated={dollar.official?.lastUpdate}
+          status={dollar.official?.status}
         />
         <DollarCard
           title="Blue"
-          value={state?.dolarInfo?.blue?.buy}
-          lastUpdated={state?.dolarInfo?.blue?.lastUpdated}
-          status={state?.dolarInfo?.blue?.status}
+          value={dollar.blue?.buy}
+          lastUpdated={dollar.blue?.lastUpdate}
+          status={dollar.blue?.status}
         />
       </CardsContainer>
     </Card>

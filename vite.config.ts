@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import svgr from 'vite-plugin-svgr'
 import { VitePWA } from "vite-plugin-pwa";
+import path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -47,5 +48,25 @@ export default defineConfig({
       },
     }),
   ],
+  resolve: {
+    alias: [
+      { find: "@assets", replacement: path.resolve(__dirname, "src/assets") },
+      {
+        find: "@components",
+        replacement: path.resolve(__dirname, "src/components"),
+      },
+      {
+        find: "@entities",
+        replacement: path.resolve(__dirname, "src/entities"),
+      },
+      { find: "@hooks", replacement: path.resolve(__dirname, "src/hooks") },
+      { find: "@pages", replacement: path.resolve(__dirname, "src/pages") },
+      {
+        find: "@services",
+        replacement: path.resolve(__dirname, "src/services"),
+      },
+      { find: "@utils", replacement: path.resolve(__dirname, "src/utils") },
+    ],
+  },
 });
 

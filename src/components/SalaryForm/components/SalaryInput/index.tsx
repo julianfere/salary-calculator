@@ -1,10 +1,10 @@
-import { Input } from "antd";
-import { StyledFormItem } from "components/SalaryForm/styles";
+import NumericInput from "@components/NumericInput";
+import { StyledFormItem } from "@components/SalaryForm/styles";
 
 const SalaryInput = () => {
   return (
-    <StyledFormItem name="salary" label="Sueldo bruto" labelAlign="right">
-      <Input type="phone" />
+    <StyledFormItem name="salary" label="Sueldo neto" labelAlign="right">
+      <NumericInput type="numeric" />
     </StyledFormItem>
   );
 };

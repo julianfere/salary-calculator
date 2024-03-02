@@ -1,27 +1,27 @@
 {
-  "name": "snap-dashboard",
+  "name": "dashboardv2",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
-    "generate-pwa-assets": "pwa-assets-generator --preset minimal public/logo.svg"
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@ant-design/icons": "^5.1.4",
     "@emotion/react": "^11.10.8",
     "@emotion/styled": "^11.10.8",
+    "@julianfere/react-utility-hooks": "^1.1.0",
     "antd": "^5.13.3",
+    "axios": "^1.6.7",
     "dayjs": "^1.11.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.11.1",
     "sharp": "^0.33.2",
     "styled-components": "^6.1.1",
-    "vite-plugin-svgr": "^3.2.0",
     "vite-tsconfig-paths": "^4.2.0"
   },
   "devDependencies": {
@@ -37,6 +37,7 @@
     "prop-types": "15.8.1",
     "typescript": "^5.0.2",
     "vite": "^4.3.2",
-    "vite-plugin-pwa": "^0.17.4"
+    "vite-plugin-pwa": "^0.17.4",
+    "vite-plugin-svgr": "^3.2.0"
   }
 }

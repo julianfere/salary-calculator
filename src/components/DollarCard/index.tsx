@@ -1,12 +1,12 @@
 import { ArrowUpOutlined, ArrowDownOutlined } from "@ant-design/icons";
 import { Row, Col, Card, Statistic, Typography } from "antd";
-import { useTheme } from "hooks";
-import { DollarStatuses } from "services/dolarService/types";
+import { useTheme } from "@hooks/useTheme";
+import { DollarStatus } from "@entities/Dollar";
 
 type DollarCardProps = {
   value: number;
   title: string;
-  status?: DollarStatuses;
+  status?: DollarStatus;
   lastUpdated?: string;
 };
 

@@ -1,27 +1,31 @@
-import { Button, Form, Input, Select, Switch, message } from "antd";
+import { IStore } from "@entities/Storage";
+import useDashboard from "@hooks/useDashboard";
+import { ICalculatorConfig } from "@hooks/useDashboard/context/types";
+import { useLocalStorage } from "@julianfere/react-utility-hooks";
+import { Button, Card, Form, Input, Select, Switch, message } from "antd";
 import FormItem from "antd/es/form/FormItem";
-import Card from "components/Card";
-import { dollarOptions, hourOptions } from "components/SalaryForm/constants";
-import { setConfig } from "context/AppContext/actions";
-import { AppConfig } from "context/AppContext/types";
-import { useLocalStorage } from "hooks";
-import useApp from "hooks/useApp";
 import { useState } from "react";
+import { dollarOptions, hourOptions } from "src/constants";
 
 const Config = () => {
-  const { state, dispatch } = useApp();
-  const [form] = Form.useForm<AppConfig>();
-  const [dolarSwitch, setDolarSwitch] = useState(state.config.dolar);
-  const [plusSwitch, setPlusSwitch] = useState(state.config.plus);
+  const { config, updateContext } = useDashboard();
+  const [form] = Form.useForm<ICalculatorConfig>();
+  const [dolarSwitch, setDolarSwitch] = useState(!!config.dollarPercentage);
+  const [plusSwitch, setPlusSwitch] = useState(!!config.dollarPlus);
   const [pesosPlusSwitch, setPesosPlusSwitch] = useState(
-    !!state.config.pesosPlus
+    !!config.pesosPlus
   );
-  const { saveConfig } = useLocalStorage();
+  const { setItem } = useLocalStorage<IStore>();
   const [messageApi, contextHolder] = message.useMessage();
 
-  const handleSumit = (values: AppConfig) => {
-    dispatch(setConfig(values));
-    saveConfig(values);
+  const handleSumit = (values: ICalculatorConfig) => {
+    updateContext({
+      config: {
+        ...config,
+        ...values,
+      },
+    });
+    setItem('config', values);
     messageApi.success("Configuración guardada");
   };
 
@@ -53,8 +57,10 @@ const Config = () => {
 
   const handleReset = () => {
     form.resetFields();
-    dispatch(setConfig({} as AppConfig));
-    saveConfig({} as AppConfig);
+    updateContext({
+      config: {} as ICalculatorConfig,
+    });
+    setItem('config', {});
     messageApi.info("Valores reiniciados");
   };
 
@@ -74,10 +80,10 @@ const Config = () => {
         layout="vertical"
         onFinish={handleSumit}
         initialValues={{
-          hours: state.config.hours,
-          dolar: state.config.dolar,
-          percentage: state.config.percentage,
-          plus: state.config.plus,
+          hours: config.hours,
+          pesosPlus: config.pesosPlus,
+          dollarPercentage: dollarOptions.find( x => x.value === config.dollarPercentage),
+          dollarPlus: config.dollarPlus,
         }}
       >
         <Card title="Configuración">
@@ -93,12 +99,12 @@ const Config = () => {
             <FormItem label="Cobras en dólares?" name="dolar">
               <Switch
                 onChange={handleSwitch}
-                defaultChecked={state.config.dolar}
+                defaultChecked={!!config.dollarPercentage}
               />{" "}
               {dolarSwitch ? "Sí" : "No"}
             </FormItem>
           </section>
-          <FormItem label="Que porcentage?" name="percentage">
+          <FormItem label="Que porcentage?" name="dollarPercentage">
             <Select options={dollarOptions} disabled={!dolarSwitch} />
           </FormItem>
           <section
@@ -116,13 +122,13 @@ const Config = () => {
               {plusSwitch ? "Sí" : "No"}
             </FormItem>
           </section>
-          <FormItem label="Agregar plus en dolares" name="plusAmount">
+          <FormItem label="Agregar plus en dolares" name="dollarPlus">
             <Input type="phone" disabled={!plusSwitch} />
           </FormItem>
           <FormItem label="Cobras un plus en pesos?" name="pesosPlusSwitch">
             <Switch
               onChange={handlePesosPlusSwitch}
-              defaultChecked={!pesosPlusSwitch}
+              defaultChecked={pesosPlusSwitch}
             />{" "}
             {pesosPlusSwitch ? "Sí" : "No"}
           </FormItem>
