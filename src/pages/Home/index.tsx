@@ -11,15 +11,22 @@ import useDashboard from "@hooks/useDashboard";
 
 const Home = () => {
   const { config } = useDashboard();
+
+  const showHoursInput = !Boolean(config.hours);
+  const showPercentageInput = !Boolean(config.dollarPercentage);
+  const showPlusDollarsInput = !Boolean(config.dollarPlus);
+  const showDollarInput = !Boolean(config.calculateDollars);
+  const showPesosPlusInput = !Boolean(config.pesosPlus);
+
   return (
     <Container>
       <FirstSection>
         <SalaryForm
-          hours={!config.hours}
-          percentage={!config.dollarPercentage}
-          plusDollars={!config.dollarPlus}
-          dolar={!config.calculateDollars}
-          pesosPlus={config.pesosPlus}
+          hours={showHoursInput}
+          percentage={showPercentageInput}
+          plusDollars={showPlusDollarsInput}
+          dolar={showDollarInput}
+          pesosPlus={showPesosPlusInput}
         />
       </FirstSection>
       <SecondSection>

@@ -36,7 +36,8 @@ const useSalaryCalculator = () => {
 
     const netIncomeRestedHours = normalizedNetIncome * hoursPercentage 
 
-    const netIncomeInDollars = ((netIncomeRestedHours + normalizedPlusPesos) * dollarPercentage) / dollar.blue.sell;
+    const netIncomeInDollars =
+      (netIncomeRestedHours * dollarPercentage) / dollar.blue.sell;
     const netIncomePlusDolarBlue = ((netIncomeInDollars + normalizedPlusDollars) *  dollar.blue.sell) + netIncomeRestedHours;
     const netIncomeRestedDollar = netIncomeRestedHours - (netIncomeInDollars * dollar.blue.sell);
 

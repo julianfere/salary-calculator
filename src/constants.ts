@@ -20,6 +20,10 @@ export const hourOptions = [
 
 export const dollarOptions = [
   {
+    value: 1,
+    label: "0%",
+  },
+  {
     value: 0.15,
     label: "15%",
   },

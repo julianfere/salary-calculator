@@ -22,7 +22,7 @@ interface SalaryFormProps {
   percentage?: boolean;
   plusDollars?: boolean;
   dolar?: boolean;
-  pesosPlus?: number;
+  pesosPlus?: boolean;
 }
 
 const SalaryForm = (props: SalaryFormProps) => {
@@ -36,22 +36,22 @@ const SalaryForm = (props: SalaryFormProps) => {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleSubmit = (values: any) => {
-    const data = calculate(
-      {
-        netIncome: values.salary,
-        hoursPercentage: values.percentage ?? config.hours,
-        dollarPercentage: values.dolarPercentage ?? config.dollarPercentage,
-        plusDollars: values.plusDollars ?? config.dollarPlus,
-        plusPesos: values.plusPesos ?? config.pesosPlus,
-      }
-    );
+    const data = calculate({
+      netIncome: values.salary,
+      hoursPercentage: values.percentage ?? config.hours,
+      dollarPercentage: values.dolarPercentage ?? config.dollarPercentage,
+      plusDollars: values.plusDollars ?? config.dollarPlus,
+      plusPesos: values.plusPesos ?? config.pesosPlus,
+    });
 
     setItem("salary", {
       value: data.netIncome,
       lastUpdate: new Date().toString(),
     });
 
-    updateContext({ salary: { value: data.netIncome, lastUpdate: new Date().toString() } })
+    updateContext({
+      salary: { value: data.netIncome, lastUpdate: new Date().toString() },
+    });
 
     setSalaryData(data);
     setIsTooltipOpen(true);
@@ -59,6 +59,8 @@ const SalaryForm = (props: SalaryFormProps) => {
       setIsTooltipOpen(false);
     }, 3000);
   };
+
+  console.log(salaryData)
 
   return (
     <Card title="Calcular sueldo">
@@ -68,7 +70,7 @@ const SalaryForm = (props: SalaryFormProps) => {
           {props.hours && <HoursInput options={hourOptions} />}
           {props.percentage && <DolarPercentageInput options={dollarOptions} />}
           {props.plusDollars && <PlusDolarsInput />}
-          {!props.pesosPlus && <PlusPesosInput />}
+          {props.pesosPlus && <PlusPesosInput />}
           <section
             style={{
               display: "flex",
@@ -113,12 +115,12 @@ const SalaryForm = (props: SalaryFormProps) => {
                     </Descriptions.Item>
                   </>
                 )}
-                {!!props.pesosPlus && (
+                {props.pesosPlus && (
                   <Descriptions.Item
                     label="Plus en pesos"
                     labelStyle={{ color: colorPrimary }}
                   >
-                    {humanReadableNumber(props.pesosPlus ?? 0) ?? "-"}
+                    {humanReadableNumber(config.pesosPlus ?? salaryData?.plusPesos ?? 0) ?? "-"}
                   </Descriptions.Item>
                 )}
               </Descriptions>
