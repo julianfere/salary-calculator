@@ -1,4 +1,4 @@
-import { Card, Descriptions, Form, FormRule, Tooltip } from "antd";
+import { Card, Descriptions, Form, Tooltip } from "antd";
 import { useTheme } from "@hooks/useTheme";
 import { useLocalStorage } from "@julianfere/react-utility-hooks";
 import { useState } from "react";
