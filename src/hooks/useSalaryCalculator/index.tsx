@@ -10,6 +10,9 @@ type CalculateProps = {
 }
 
 const normalizeNumber = (value: number) => {
+  if (isNaN(value)) {
+    return 0;
+  }
   const str = value.toString();
 
   const fnumber = str.replace(/[,.]/g, "");
@@ -26,43 +29,49 @@ const useSalaryCalculator = () => {
     hoursPercentage,
     dollarPercentage,
     plusDollars,
-    plusPesos
+    plusPesos,
   }: CalculateProps): IFinalSalary => {
     const skipDollar = dollarPercentage === 1;
 
-    const normalizedNetIncome = normalizeNumber(netIncome ?? 0);
-    const normalizedPlusDollars = normalizeNumber(plusDollars ?? 0);
-    const normalizedPlusPesos = normalizeNumber(plusPesos ?? 0);
+    const nHoursPercentage = normalizeNumber(hoursPercentage);
+    const nDollarPercentage = normalizeNumber(dollarPercentage);
+    const nNetIncome = normalizeNumber(netIncome ?? 0);
+    const nPlusDollars = normalizeNumber(plusDollars ?? 0);
+    const nPlusPesos = normalizeNumber(plusPesos ?? 0);
 
-    const netIncomeRestedHours = normalizedNetIncome * hoursPercentage 
+    const netIncomeRestedHours =
+      nNetIncome * nHoursPercentage;
 
     const netIncomeInDollars =
-      (netIncomeRestedHours * dollarPercentage) / dollar.blue.sell;
-    const netIncomePlusDolarBlue = ((netIncomeInDollars + normalizedPlusDollars) *  dollar.blue.sell) + netIncomeRestedHours;
-    const netIncomeRestedDollar = netIncomeRestedHours - (netIncomeInDollars * dollar.blue.sell);
+      (netIncomeRestedHours * nDollarPercentage) / dollar.blue.sell;
+    const netIncomePlusDolarBlue =
+      (netIncomeInDollars + nPlusDollars) * dollar.blue.sell +
+      netIncomeRestedHours;
+    const netIncomeRestedDollar =
+      netIncomeRestedHours - netIncomeInDollars * dollar.blue.sell;
 
     if (skipDollar) {
       return {
-        netIncome: netIncomeRestedHours + normalizedPlusPesos,
+        netIncome: netIncomeRestedHours + nPlusPesos,
         netIncomeInDollars: 0,
         netIncomePlusDolarBlue: 0,
         plusDollars: 0,
-        plusPesos
-      }
+        plusPesos,
+      };
     }
 
     return {
-      netIncome: netIncomeRestedDollar + normalizedPlusPesos,
+      netIncome: netIncomeRestedDollar + nPlusPesos,
       netIncomeInDollars,
       netIncomePlusDolarBlue,
-      plusDollars: normalizedPlusDollars,
-      plusPesos: normalizedPlusPesos
-    }
-  }
+      plusDollars: nPlusDollars,
+      plusPesos: nPlusPesos,
+    };
+  };
 
   return {
-    calculate
-  }
-}
+    calculate,
+  };
+};
 
 export default useSalaryCalculator;

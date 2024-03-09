@@ -37,15 +37,24 @@ const CalculateRise = () => {
 
   const { colorPrimary } = useTheme();
 
+  const requiredRule = { required: true, message: "Campo requerido" };
+
   return (
     <Card title="Calcular aumento">
-      <Form form={form} layout="vertical" size="large" onFinish={handleSubmit}>
+      <Form
+        form={form}
+        layout="vertical"
+        size="large"
+        onFinish={handleSubmit}
+        requiredMark={false}
+      >
         <RaiseFormContainer>
           <Column>
             <StyledFormItem
               name="salary"
               label="Ultimo sueldo bruto"
               labelAlign="right"
+              rules={[requiredRule]}
             >
               <NumericInput />
             </StyledFormItem>
@@ -53,6 +62,7 @@ const CalculateRise = () => {
               name="percentage"
               label=" "
               style={{ width: "5rem" }}
+              rules={[requiredRule]}
             >
               <NumericInput addonBefore="%" />
             </StyledFormItem>

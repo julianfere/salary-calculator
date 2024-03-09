@@ -1,4 +1,4 @@
-import { Card, Descriptions, Form, Tooltip } from "antd";
+import { Card, Descriptions, Form, FormRule, Tooltip } from "antd";
 import { useTheme } from "@hooks/useTheme";
 import { useLocalStorage } from "@julianfere/react-utility-hooks";
 import { useState } from "react";
@@ -16,6 +16,7 @@ import { IStore } from "@entities/Storage";
 import { IFinalSalary } from "@entities/Salary";
 import useSalaryCalculator from "@hooks/useSalaryCalculator";
 import { humanReadableNumber } from "@utils/NumberUtils";
+import { Rule } from "antd/es/form";
 
 interface SalaryFormProps {
   hours?: boolean;
@@ -60,16 +61,32 @@ const SalaryForm = (props: SalaryFormProps) => {
     }, 3000);
   };
 
-  console.log(salaryData)
+  const requiredRule: Rule = {
+    required: true,
+    message: "Campo requerido",
+  };
 
   return (
     <Card title="Calcular sueldo">
-      <Form form={form} layout="vertical" size="large" onFinish={handleSubmit}>
+      <Form
+        form={form}
+        layout="vertical"
+        size="large"
+        onFinish={handleSubmit}
+        requiredMark={false}
+      >
         <FormControllContainer>
-          <SalaryInput />
-          {props.hours && <HoursInput options={hourOptions} />}
-          {props.percentage && <DolarPercentageInput options={dollarOptions} />}
-          {props.plusDollars && <PlusDolarsInput />}
+          <SalaryInput rules={[requiredRule]} />
+          {props.hours && (
+            <HoursInput options={hourOptions} rules={[requiredRule]} />
+          )}
+          {props.percentage && (
+            <DolarPercentageInput
+              options={dollarOptions}
+              rules={[requiredRule]}
+            />
+          )}
+          {props.plusDollars && <PlusDolarsInput rules={[requiredRule]} />}
           {props.pesosPlus && <PlusPesosInput />}
           <section
             style={{
@@ -120,7 +137,9 @@ const SalaryForm = (props: SalaryFormProps) => {
                     label="Plus en pesos"
                     labelStyle={{ color: colorPrimary }}
                   >
-                    {humanReadableNumber(config.pesosPlus ?? salaryData?.plusPesos ?? 0) ?? "-"}
+                    {humanReadableNumber(
+                      config.pesosPlus ?? salaryData?.plusPesos ?? 0
+                    ) ?? "-"}
                   </Descriptions.Item>
                 )}
               </Descriptions>
