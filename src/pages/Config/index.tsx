@@ -1,8 +1,9 @@
+import NumericInput from "@components/NumericInput";
 import { IStore } from "@entities/Storage";
 import useDashboard from "@hooks/useDashboard";
 import { ICalculatorConfig } from "@hooks/useDashboard/context/types";
 import { useLocalStorage } from "@julianfere/react-utility-hooks";
-import { Button, Card, Form, Input, Select, Switch, message } from "antd";
+import { Button, Card, Form, Select, Switch, message } from "antd";
 import FormItem from "antd/es/form/FormItem";
 import { useState } from "react";
 import { dollarOptions, hourOptions } from "src/constants";
@@ -12,9 +13,7 @@ const Config = () => {
   const [form] = Form.useForm<ICalculatorConfig>();
   const [dolarSwitch, setDolarSwitch] = useState(!!config.dollarPercentage);
   const [plusSwitch, setPlusSwitch] = useState(!!config.dollarPlus);
-  const [pesosPlusSwitch, setPesosPlusSwitch] = useState(
-    !!config.pesosPlus
-  );
+  const [pesosPlusSwitch, setPesosPlusSwitch] = useState(!!config.pesosPlus);
   const { setItem } = useLocalStorage<IStore>();
   const [messageApi, contextHolder] = message.useMessage();
 
@@ -25,7 +24,7 @@ const Config = () => {
         ...values,
       },
     });
-    setItem('config', values);
+    setItem("config", values);
     messageApi.success("Configuración guardada");
   };
 
@@ -60,7 +59,7 @@ const Config = () => {
     updateContext({
       config: {} as ICalculatorConfig,
     });
-    setItem('config', {});
+    setItem("config", {});
     messageApi.info("Valores reiniciados");
   };
 
@@ -82,7 +81,9 @@ const Config = () => {
         initialValues={{
           hours: config.hours,
           pesosPlus: config.pesosPlus,
-          dollarPercentage: dollarOptions.find( x => x.value === config.dollarPercentage),
+          dollarPercentage: dollarOptions.find(
+            (x) => x.value === config.dollarPercentage
+          ),
           dollarPlus: config.dollarPlus,
         }}
       >
@@ -123,7 +124,7 @@ const Config = () => {
             </FormItem>
           </section>
           <FormItem label="Agregar plus en dolares" name="dollarPlus">
-            <Input type="phone" disabled={!plusSwitch} />
+            <NumericInput disabled={!plusSwitch} />
           </FormItem>
           <FormItem label="Cobras un plus en pesos?" name="pesosPlusSwitch">
             <Switch
@@ -133,7 +134,7 @@ const Config = () => {
             {pesosPlusSwitch ? "Sí" : "No"}
           </FormItem>
           <FormItem label="Agregar plus en pesos" name="pesosPlus">
-            <Input type="phone" disabled={!pesosPlusSwitch} />
+            <NumericInput disabled={!pesosPlusSwitch} />
           </FormItem>
           <section
             style={{
