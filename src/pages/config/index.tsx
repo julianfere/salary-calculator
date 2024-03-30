@@ -88,6 +88,9 @@ const Config = () => {
         }}
       >
         <Card title="Configuración">
+          <FormItem label="Usar el nuevo home?" name="newHome">
+            <Switch defaultChecked={config.newHome} />
+          </FormItem>
           <FormItem label="Cuantas horas trabajas?" name="hours">
             <Select options={hourOptions} />
           </FormItem>

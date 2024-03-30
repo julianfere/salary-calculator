@@ -7,10 +7,11 @@ export interface ICalculatorConfig {
   dollarPlus?: number;
   pesosPlus?: number;
   calculateDollars?: boolean;
+  newHome?: boolean;
 }
 
 export interface IDashboardContext {
-  dollar: IDollarData
+  dollar: IDollarData;
   salary: IStore["salary"];
   config: ICalculatorConfig;
   raise: IStore["salary"];
