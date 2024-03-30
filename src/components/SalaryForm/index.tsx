@@ -86,7 +86,7 @@ const SalaryForm = (props: SalaryFormProps) => {
               rules={[requiredRule]}
             />
           )}
-          {props.plusDollars && <PlusDolarsInput rules={[requiredRule]} />}
+          {props.plusDollars && <PlusDolarsInput />}
           {props.pesosPlus && <PlusPesosInput />}
           <section
             style={{
