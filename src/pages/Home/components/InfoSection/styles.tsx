@@ -1,9 +1,10 @@
 import styled from "styled-components";
 
-export const MiscContainer = styled.section`
+export const MiscContainer = styled.section<{ width?: string }>`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  width: ${({ width }) => width ?? "auto"};
 `;
 
 export const Container = styled.section`

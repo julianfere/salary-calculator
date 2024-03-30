@@ -5,22 +5,22 @@ import useDashboard from "@hooks/useDashboard";
 import { IStore } from "@entities/Storage";
 import { Card } from "antd";
 
-const InfoSection = () => {
+const InfoSection = ({ width }: { width?: string }) => {
   const { updateContext, salary, raise } = useDashboard();
   const { removeItem } = useLocalStorage<IStore>();
 
   const handleClearSalary = () => {
     removeItem("salary");
-    updateContext({ salary: {lastUpdate: new Date().toString(), value: 0} })
+    updateContext({ salary: { lastUpdate: new Date().toString(), value: 0 } });
   };
 
   const handleClearRaise = () => {
     removeItem("raise");
-    updateContext({ raise: {lastUpdate: new Date().toString(), value: 0} })
+    updateContext({ raise: { lastUpdate: new Date().toString(), value: 0 } });
   };
 
   return (
-    <MiscContainer>
+    <MiscContainer width={width}>
       <Card title="Ultimos datos calculados">
         <Container>
           <StatisticCard
