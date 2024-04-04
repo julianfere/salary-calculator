@@ -24,8 +24,6 @@ const useDollar = () => {
     }
   );
 
-  console.log('dollar', state, dollar)
-
   return {
     dollar,
     state,
