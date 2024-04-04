@@ -34,7 +34,7 @@ const useSalaryCalculator = () => {
     const skipDollar = dollarPercentage === 1;
 
     const nHoursPercentage = normalizeNumber(hoursPercentage);
-    const nDollarPercentage = normalizeNumber(dollarPercentage);
+    const nDollarPercentage = dollarPercentage;
     const nNetIncome = normalizeNumber(netIncome ?? 0);
     const nPlusDollars = normalizeNumber(plusDollars ?? 0);
     const nPlusPesos = normalizeNumber(plusPesos ?? 0);
@@ -58,6 +58,24 @@ const useSalaryCalculator = () => {
         plusDollars: 0,
         plusPesos,
       };
+    }
+
+    if (process.env.NODE_ENV === "development") {
+      console.table({
+        nHoursPercentage,
+        nDollarPercentage,
+        nNetIncome,
+        nPlusDollars,
+        nPlusPesos,
+      });
+
+      console.table({
+        netIncome: netIncomeRestedDollar + nPlusPesos,
+        netIncomeInDollars,
+        netIncomePlusDolarBlue,
+        plusDollars: nPlusDollars,
+        plusPesos: nPlusPesos,
+      });
     }
 
     return {
