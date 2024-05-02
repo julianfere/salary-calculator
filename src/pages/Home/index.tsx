@@ -1,11 +1,7 @@
 import CalculateRise from "@components/CalculateRise";
 import SalaryForm from "@components/SalaryForm";
 import InfoSection from "./components/InfoSection";
-import {
-  Container,
-  FirstSection,
-  SecondSection,
-} from "./styled";
+import { Container, FirstSection, SecondSection } from "./styled";
 import DollarInfoCard from "./DollarInfoCard";
 import useDashboard from "@hooks/useDashboard";
 

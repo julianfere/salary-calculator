@@ -7,7 +7,7 @@ type CalculateProps = {
   dollarPercentage: number;
   plusDollars: number;
   plusPesos: number;
-}
+};
 
 const normalizeNumber = (value: number) => {
   if (isNaN(value)) {
@@ -15,10 +15,9 @@ const normalizeNumber = (value: number) => {
   }
   const str = value.toString();
 
-  const fnumber = str.replace(/[,.]/g, "");
-  const integer = parseInt(fnumber, 10);
+  const float = parseFloat(str);
 
-  return integer;
+  return float;
 };
 
 const useSalaryCalculator = () => {
@@ -39,8 +38,7 @@ const useSalaryCalculator = () => {
     const nPlusDollars = normalizeNumber(plusDollars ?? 0);
     const nPlusPesos = normalizeNumber(plusPesos ?? 0);
 
-    const netIncomeRestedHours =
-      nNetIncome * nHoursPercentage;
+    const netIncomeRestedHours = nNetIncome * nHoursPercentage;
 
     const netIncomeInDollars =
       (netIncomeRestedHours * nDollarPercentage) / dollar.blue.sell;
