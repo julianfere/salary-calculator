@@ -6,9 +6,9 @@ Small app to calculate income and hours by month
 
 ## TODO
 
-- [ ] HomePage
+- [x] HomePage
   - [x] Create cards for each value of dolar
   - [x] Create calculator for income
-  - [ ] Create calculator for hours
-  - [ ] Calculate income based on extra hours
+  - [x] Create calculator for hours
+  - [x] Calculate income based on extra hours
   - [x] Create calendar for work days in the month
